@@ -15,6 +15,4 @@ then
 fi
 
 echo " ======= RUNNING REACT APPLICATION ========= "
-xterm -title "reading-react-app" -e "npm start"
-echo " ========= STOPPING APPLICATIONS =========== "
-pkill -P $$
+npm start
