@@ -11,12 +11,20 @@ const styles = theme => ({
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)'
     },
+    sm_tile: {
+        width: '20vw !important',
+        height: '30vh !important'
+    },
     tile: {
-        minWidth: '50vw',
-        minHeight: '30vh'
+        width: '40vw !important',
+        height: '30vh !important'
+    },
+    h_tile: {
+        width: '30vw !important',
+        height: '45vh !important'
     },
     title: {
-        color: theme.palette.primary.light
+        color: 'white'
     },
     titleBar: {
         background:
