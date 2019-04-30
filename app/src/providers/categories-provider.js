@@ -17,3 +17,21 @@ export const getAllCategories = async ({origin}) => {
         return null;
     }
 }
+
+export const getPostsByCatagory = async ({origin, category}) => {
+    try {
+        const {data} = await axios.get(
+            `${origin}/${category}/posts`,
+            {
+                headers: {
+                    'Authorization': 'random-token'
+                }
+            }
+        );
+
+        return data;
+    } catch(e) {
+        console.log('ERROR: ', e);
+        return null;
+    }
+}
