@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <Provider store={MainStore} >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <App />
     </Provider>
 , document.getElementById('root'));

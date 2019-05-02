@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { RootPage, PostPage, CategoryPage } from './Pages';
+
 import {
     getAllCategories,
     getPostsByCatagory
 } from '../providers/categories-provider';
 
-const origin = 'http://localhost:3001';
+import {
+    setCategories
+} from '../actions/category-actions';
+
+import {
+    setPosts,
+    orderPosts
+} from '../actions/post-actions';
 
 class App extends Component {
     constructor(props) {
@@ -18,19 +28,30 @@ class App extends Component {
     }
 
     async componentDidMount() {
-        const { categories } = await Promise.resolve(getAllCategories({origin}));
+        const { setCategories, setPosts } = this.props;
+
+        const { categories } = await Promise.resolve(getAllCategories());
         const posts = await Promise.all(categories.map(category => (
-            getPostsByCatagory({origin, category: category.path})
+            getPostsByCatagory({category: category.path})
         )));
         console.log('ON MOUNTING APP', categories, posts);
 
-        this.setState({
-            categories
-        })
+        setCategories(categories);
+        setPosts(posts);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { posts: prevPosts } = prevProps;
+        const { posts, orderPosts } = this.props;
+
+        if(JSON.stringify(prevPosts) !== JSON.stringify(posts)) {
+            console.log('BEFORE ORDERING POSTS', Object.values(posts))
+            orderPosts(Object.values(posts));
+        }
     }
 
     render() {
-        const { categories } = this.state;
+        const { categories } = this.props;
 
         return (
             <Router>
@@ -38,8 +59,9 @@ class App extends Component {
                     <Route path='/' exact component={RootPage} />
                     {
                         categories &&
-                        categories.map(category => (
-                            <Route 
+                        categories.map((category, index) => (
+                            <Route
+                                key={`route-${category.path}-${index}`} 
                                 exact
                                 path={`/category/${category.path}`}
                                 component={CategoryPage}
@@ -53,4 +75,21 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = ({categories, posts}) => ({
+    categories,
+    posts
+});
+
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators(
+        { 
+            setCategories,
+            setPosts,
+            orderPosts
+        }, 
+        dispatch
+    )
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

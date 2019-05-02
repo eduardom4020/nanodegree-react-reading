@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { ORIGIN } from '../constants/requests-constants';
 
-export const getAllCategories = async ({origin}) => {
+export const getAllCategories = async (origin=ORIGIN) => {
     try {
         const {data} = await axios.get(
             `${origin}/categories`,
@@ -18,7 +19,7 @@ export const getAllCategories = async ({origin}) => {
     }
 }
 
-export const getPostsByCatagory = async ({origin, category}) => {
+export const getPostsByCatagory = async ({category}, origin=ORIGIN) => {
     try {
         const {data} = await axios.get(
             `${origin}/${category}/posts`,

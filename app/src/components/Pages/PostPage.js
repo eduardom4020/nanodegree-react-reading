@@ -1,15 +1,14 @@
-import React from 'react';
-import Page from '../Containers/Page';
+import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import styles from '../Containers/styles/PageStyles';
 import Typography from '@material-ui/core/Typography';
 
 const PostPage = ({classes}) => (
-    <Page>
+    <Fragment>
         <Typography variant='h2'>
             Post Page
         </Typography>
-    </Page>
+    </Fragment>
 );
 
 export default withStyles(styles)(PostPage);
