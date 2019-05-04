@@ -5,12 +5,9 @@ import { bindActionCreators } from 'redux';
 import Typography from '@material-ui/core/Typography';
 import ItemsList from '../Lists/ItemsList';
 
-import {
-    orderPosts
-} from '../../actions/post-actions';
-import { Button, Icon } from '@material-ui/core';
+import OrderButton from '../Buttons/OrderButtonContainer';
 
-const RootPage = ({categories, posts, postsOrder, orderPosts}) => (
+const RootPage = ({categories, posts, postsOrder}) => (
     <Fragment>
         <Typography variant='h2'>
             Main Page
@@ -19,17 +16,35 @@ const RootPage = ({categories, posts, postsOrder, orderPosts}) => (
             categories &&
             categories.map((category, index) => (
                 <Fragment key={`${category.path}-${index}`}>
-                    {/* test only */}
-                    <div style={{display: 'inline-flex'}}>
+                    <div style={{display: 'inline-flex', alignItems: 'baseline'}}>
                         <Typography variant='h4'>
                             {category.name}
                         </Typography>
-                        {/* <Button onClick={() => orderPosts(Object.values(posts))}>
-                            <Typography variant='button'>
-                                Score
-                            </Typography>
-                            <Icon>arrow_drop_down</Icon>
-                        </Button> */}
+                        <div style={{marginRight: '5%'}}/>
+                        <Typography variant='h6' color='textSecondary' style={{width: '20%'}}>
+                            Filter By:
+                        </Typography>
+                        <OrderButton 
+                            name='Score'
+                            orderBy='voteScore'
+                            category={category}
+                        />
+                        <OrderButton 
+                            name='Comments'
+                            orderBy='commentCount'
+                            category={category}
+                        />
+                        <OrderButton 
+                            name='Old'
+                            orderBy='timestamp'
+                            category={category}
+                            invert={true}
+                        />
+                        <OrderButton 
+                            name='New'
+                            orderBy='timestamp'
+                            category={category}
+                        />
                     </div>
                     <ItemsList 
                         data={
@@ -54,7 +69,6 @@ const mapStateToProps = ({categories, posts, postsOrder}) => ({
 const mapDispatchToProps = dispatch => (
     bindActionCreators(
         {
-            orderPosts
         }, 
         dispatch
     )

@@ -23,8 +23,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            categories: null
-        };
+            firstLoad: null
+        }
     }
 
     async componentDidMount() {
@@ -38,15 +38,31 @@ class App extends Component {
 
         setCategories(categories);
         setPosts(posts);
+
+        this.setState({
+            firstLoad: false
+        })
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { posts: prevPosts } = prevProps;
-        const { posts, orderPosts } = this.props;
+        // const { posts: prevPosts } = prevProps;
+        // const { posts, categories, orderPosts } = this.props;
 
-        if(JSON.stringify(prevPosts) !== JSON.stringify(posts)) {
-            console.log('BEFORE ORDERING POSTS', Object.values(posts))
-            orderPosts(Object.values(posts));
+        // if(JSON.stringify(prevPosts) !== JSON.stringify(posts)) {
+        //     // console.log('BEFORE ORDERING POSTS', Object.values(posts))
+        //     const categoriesPaths = categories.map(category => category.path);
+        //     orderPosts(categoriesPaths);
+        // }
+        const { firstLoad } = this.state;
+
+        if(firstLoad === false) {
+            const { categories, orderPosts } = this.props;
+            const categoriesPaths = categories.map(category => category.path);
+            orderPosts(categoriesPaths);
+
+            this.setState({
+                firstLoad: true
+            })
         }
     }
 

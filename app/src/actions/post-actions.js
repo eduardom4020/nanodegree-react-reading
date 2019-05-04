@@ -4,6 +4,8 @@ import {
     VOTE
 } from './types';
 
+import { MainStore } from '../store/base-stores';
+
 export const setPosts = (POSTS=[]) => {
     try {
         const preTreatedPosts = POSTS.reduce((acc, curr) => ([...acc, ...curr]));
@@ -19,20 +21,28 @@ export const setPosts = (POSTS=[]) => {
     }
 };
 
-export const orderPosts = (POSTS=[], orderBy='voteScore') => {
+export const orderPosts = (categoriesPaths, orderBy='voteScore', invert=false) => {
+    // console.log('ON ORDERING POSTS', MainStore.getState())
+    const targetsPosts = Object.values(MainStore.getState().posts);
+    const POSTS = targetsPosts.filter(post => categoriesPaths.indexOf(post.category) >= 0);
+
     try {
         const postsOrder = POSTS.sort((post1, post2) => (
             post1[orderBy] > post2[orderBy] ?
-                -1
+                !invert ? -1 : 1
             : post1[orderBy] < post2[orderBy] ?
-                1
+                !invert ? 1 : -1
             :
                 0
         )).map(post => ({id: post.id, category: post.category}));
         
+        // const postsOrder = [...postsOrdered, ...otherCategoriesPosts]
+
         return {
             type: ORDER_POSTS,
-            postsOrder
+            postsOrder,
+            orderBy: `${orderBy}${invert ? '-inverse' : ''}`,
+            categoriesPaths
         }
     } catch(err) {
         console.error('On ordering posts: ', err);

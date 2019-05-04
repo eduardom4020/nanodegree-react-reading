@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import styles from '../Containers/styles/PageStyles';
+// import styles from '../Containers/styles/PageStyles';
 import Typography from '@material-ui/core/Typography';
 
 const PostPage = ({classes}) => (
@@ -11,4 +11,4 @@ const PostPage = ({classes}) => (
     </Fragment>
 );
 
-export default withStyles(styles)(PostPage);
+export default PostPage;
