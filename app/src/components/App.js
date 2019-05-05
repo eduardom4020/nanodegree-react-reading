@@ -67,7 +67,7 @@ class App extends Component {
     }
 
     render() {
-        const { categories } = this.props;
+        const { categories, posts } = this.props;
 
         return (
             <Router>
@@ -79,12 +79,22 @@ class App extends Component {
                             <Route
                                 key={`route-${category.path}-${index}`} 
                                 exact
-                                path={`/category/${category.path}`}
+                                path={`/${category.path}`}
                                 component={CategoryPage}
                             />
                         ))
                     }
-                    <Route path='/post' exact component={PostPage} />
+                    {
+                        posts &&
+                        Object.values(posts).map((post, index) => (
+                            <Route
+                                key={`post-${post.id}-${index}`} 
+                                exact
+                                path={`/${post.category}/${post.id}`}
+                                component={PostPage}
+                            />
+                        ))
+                    }
                 </div>
             </Router>
         );
@@ -92,6 +102,7 @@ class App extends Component {
 }
 
 const mapStateToProps = ({categories, posts}) => ({
+    posts,
     categories,
     posts
 });

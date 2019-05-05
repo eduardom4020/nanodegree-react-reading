@@ -1,14 +1,40 @@
 import React, { Fragment } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-// import styles from '../Containers/styles/PageStyles';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+
 import Typography from '@material-ui/core/Typography';
 
-const PostPage = ({classes}) => (
+// import { getFromPath } from '../../helpers/url-helpers';
+import PostCardContainer from '../Cards/PostCardContainer';
+
+const PostPage = ({post}) => (
     <Fragment>
         <Typography variant='h2'>
             Post Page
         </Typography>
+        <PostCardContainer />
+        {/* <p>{`Post Info:\n\n${JSON.stringify(post)}`}</p> */}
     </Fragment>
 );
 
 export default PostPage;
+
+// const mapStateToProps = ({posts}) => {
+//     // const postId = getFromPath();
+//     // const post = posts[postId];
+    
+//     // return {
+//     //     post
+//     // };
+// };
+
+
+// const mapDispatchToProps = dispatch => (
+//     bindActionCreators(
+//         {
+//         }, 
+//         dispatch
+//     )
+// );
+
+// export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
