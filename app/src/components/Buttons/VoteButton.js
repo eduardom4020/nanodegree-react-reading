@@ -14,7 +14,8 @@ class VoteButton extends Component {
         super(props);
 
         this.state = {
-            clicked: false
+            clicked: false,
+            ordering: false
         }
     }
 
@@ -25,18 +26,23 @@ class VoteButton extends Component {
     }
 
     componentDidUpdate() {
-        const { clicked } = this.state;
+        const { clicked, ordering } = this.state;
+        const { vote, postId, voteType, executeOrdering } = this.props;
 
-        if(clicked) {
+        if(clicked && !ordering) {
             setTimeout(() => {
                 this.setState({
-                    clicked: false
+                    clicked: false,
+                    ordering: false
                 })
-            }, 600);
+            }, 500);
             
             try {
-                const { vote, postId, voteType } = this.props;
                 vote(postId, voteType);
+                executeOrdering();
+                this.setState({
+                    ordering: true
+                });
             } catch(err) {
                 console.log('No action in storage to execute', err.toString());
             }
@@ -46,8 +52,6 @@ class VoteButton extends Component {
     render() {
         const { classes, voteType } = this.props;
         const { clicked } = this.state;
-
-        console.log('VOTE BUTTON PROPS', this.props)
 
         return (
             <IconButton 

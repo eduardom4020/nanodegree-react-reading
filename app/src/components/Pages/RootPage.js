@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import Typography from '@material-ui/core/Typography';
 import ItemsList from '../Lists/ItemsList';
 
-import OrderButton from '../Buttons/OrderButtonContainer';
+import CategoryHeader from '../Headers/CategoryHeader';
 
 const RootPage = ({categories, posts, postsOrder}) => (
     <Fragment>
@@ -16,40 +16,13 @@ const RootPage = ({categories, posts, postsOrder}) => (
             categories &&
             categories.map((category, index) => (
                 <Fragment key={`${category.path}-${index}`}>
-                    <div style={{display: 'inline-flex', alignItems: 'baseline'}}>
-                        <Typography variant='h4'>
-                            {category.name}
-                        </Typography>
-                        <div style={{marginRight: '5%'}}/>
-                        <Typography variant='h6' color='textSecondary' style={{width: '20%'}}>
-                            Filter By:
-                        </Typography>
-                        <OrderButton 
-                            name='Score'
-                            orderBy='voteScore'
-                            category={category}
-                        />
-                        <OrderButton 
-                            name='Comments'
-                            orderBy='commentCount'
-                            category={category}
-                        />
-                        <OrderButton 
-                            name='Old'
-                            orderBy='timestamp'
-                            category={category}
-                            invert={true}
-                        />
-                        <OrderButton 
-                            name='New'
-                            orderBy='timestamp'
-                            category={category}
-                        />
-                    </div>
+                    <CategoryHeader 
+                        category={category} 
+                    />
                     <ItemsList 
                         data={
                             postsOrder
-                                .filter(post => post.category === category.path)
+                                .filter(post => !post.deleted && post.category === category.path)
                                 .map(post => posts[post.id])
                         }
                     />

@@ -22,7 +22,7 @@ class OrderButton extends Component {
                 <Typography variant='button'>
                     {name}
                 </Typography>
-                <Icon className={isSelected && classes.selected}>
+                <Icon className={isSelected ? classes.selected : ''}>
                     {
                         isSelected ? 
                             'arrow_drop_up' 

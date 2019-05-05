@@ -12,13 +12,18 @@ const styles = theme => (
             // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
             transform: 'translateZ(0)'
         },
+        wrappedList: {
+            flexFlow: 'row wrap',
+            margin: '6vh 0 0 8% !important'
+        },
         sm_tile: {
             width: '20vw !important',
             height: '30vh !important',
             maxWidth: '20vw !important',
             maxHeight: '30vh !important',
             minWidth: '20vw !important',
-            minHeight: '30vh !important'
+            minHeight: '30vh !important',
+            margin: '.4vh .1vw .4vh .1vw'
         },
         tile_img: {
             '&:hover': {

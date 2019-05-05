@@ -34,7 +34,7 @@ class App extends Component {
         const posts = await Promise.all(categories.map(category => (
             getPostsByCatagory({category: category.path})
         )));
-        console.log('ON MOUNTING APP', categories, posts);
+        // console.log('ON MOUNTING APP', categories, posts);
 
         setCategories(categories);
         setPosts(posts);

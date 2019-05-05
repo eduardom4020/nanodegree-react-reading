@@ -9,7 +9,7 @@ import styles from './styles/ItemsListStyles';
 
 import VoteButtonContainer from '../Buttons/VoteButtonContainer';
 
-const SimplePostTile = ({classes, title, id, voteScore, commentCount}) => (
+const SimplePostTile = ({classes, title, id, voteScore, commentCount, category}) => (
     <GridListTile 
         key={`${title}-${id}`}
         className={classes.sm_tile}
@@ -40,8 +40,8 @@ const SimplePostTile = ({classes, title, id, voteScore, commentCount}) => (
             }}
             actionIcon={
                 <Fragment>
-                    <VoteButtonContainer voteType='like' postId={id} />
-                    <VoteButtonContainer voteType='unlike' postId={id} />
+                    <VoteButtonContainer voteType='like' postId={id} category={category}/>
+                    <VoteButtonContainer voteType='unlike' postId={id} category={category}/>
                     <IconButton className={classes.contentBt}>
                         <Icon className={classes.title}>add_comment</Icon>
                     </IconButton>
