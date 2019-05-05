@@ -19,6 +19,8 @@ import styles from './styles/PostCardStyles';
 
 import IMG_PLACEHOLDER from '../../images/placeholder.png';
 
+import VoteButtonContainer from '../Buttons/VoteButtonContainer';
+
 class PostCard extends Component {
     constructor(props) {
         super(props);
@@ -77,6 +79,8 @@ class PostCard extends Component {
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
+                    <VoteButtonContainer voteType='like' />
+                    <VoteButtonContainer voteType='unlike' />
                 {/* <IconButton aria-label="Add to favorites">
                     <FavoriteIcon />
                 </IconButton>
