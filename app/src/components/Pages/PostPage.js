@@ -1,40 +1,51 @@
 import React, { Fragment } from 'react';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
 
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
-// import { getFromPath } from '../../helpers/url-helpers';
 import PostCardContainer from '../Cards/PostCardContainer';
+import CommentsListContainer from '../Containers/CommentsListContainer';
 
-const PostPage = ({post}) => (
+import FormButton from '../Buttons/FormButton';
+
+const PostPage = ({classes}) => (
     <Fragment>
         <Typography variant='h2'>
             Post Page
         </Typography>
         <PostCardContainer />
-        {/* <p>{`Post Info:\n\n${JSON.stringify(post)}`}</p> */}
+        <CommentsListContainer />
+        <FormButton 
+            title='Add a comment to this post:'
+            form={
+                <Fragment>
+                    <TextField
+                        // id="outlined-multiline-flexible"
+                        label='Your Name'
+                        // value={this.state.multiline}
+                        // onChange={this.handleChange('multiline')}
+                        // className={classes.textField}
+                        margin="normal"
+                        // helperText="hello"
+                        variant="outlined"
+                        
+                    />
+                    <br />
+                    <TextField
+                        // id="outlined-multiline-flexible"
+                        label='Comment'
+                        multiline
+                        // value={this.state.multiline}
+                        // onChange={this.handleChange('multiline')}
+                        // className={classes.textField}
+                        margin="normal"
+                        // helperText="hello"
+                        variant="outlined"
+                    />
+                </Fragment>
+            }
+        />
     </Fragment>
 );
 
 export default PostPage;
-
-// const mapStateToProps = ({posts}) => {
-//     // const postId = getFromPath();
-//     // const post = posts[postId];
-    
-//     // return {
-//     //     post
-//     // };
-// };
-
-
-// const mapDispatchToProps = dispatch => (
-//     bindActionCreators(
-//         {
-//         }, 
-//         dispatch
-//     )
-// );
-
-// export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

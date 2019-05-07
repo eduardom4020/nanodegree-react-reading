@@ -20,19 +20,11 @@ import styles from './styles/PostCardStyles';
 import IMG_PLACEHOLDER from '../../images/placeholder.png';
 
 import VoteButtonContainer from '../Buttons/VoteButtonContainer';
+import InitialsAvatar from '../Avatars/InitialsAvatar';
 
 class PostCard extends Component {
     constructor(props) {
         super(props);
-    }
-
-    getInitials = text => {
-        const tokens = text && text.split(' ');
-        if(tokens) {
-            return tokens.length > 1 ? `${tokens[0]}${tokens[1]}`.toUpperCase() : text[0].toUpperCase();
-        } else {
-            return '?'
-        }
     }
 
     render() {
@@ -45,13 +37,10 @@ class PostCard extends Component {
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Tooltip
-                            title={`Author: ${author}`}
-                        >
-                            <Avatar aria-label="Author" className={classes.avatar}>
-                                {this.getInitials(author)}
-                            </Avatar>
-                        </Tooltip>
+                        <InitialsAvatar 
+                            text={author}
+                            tooltipText={`Author: ${author}`}
+                        />
                     }
                     // action={
                     //     <IconButton>

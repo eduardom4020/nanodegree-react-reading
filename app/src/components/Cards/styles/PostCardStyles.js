@@ -1,5 +1,3 @@
-import red from '@material-ui/core/colors/red';
-
 const styles = theme => ({
     card: {
       width: '90%',
@@ -22,9 +20,6 @@ const styles = theme => ({
     },
     expandOpen: {
       transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
     },
     enterIcon: {
         fontSize: '2.3em !important',
