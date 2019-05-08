@@ -1,5 +1,7 @@
 import { 
-    SET_COMMENTS
+    SET_COMMENTS,
+    ADD_COMMENT,
+    DELETE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +21,12 @@ const CommentsReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_COMMENTS:
             return action.comments || state;
+        case ADD_COMMENT:
+            const { comment } = action;
+            return {...state, [comment.id]: comment}
+        case DELETE_COMMENT:
+            // const { comment } = action;
+            return state.map(comment => action.id === comment.id ? {...comment, deleted: true} : comment);
         // case VOTE:
         //     const { postId, score } = action;
         //     return {

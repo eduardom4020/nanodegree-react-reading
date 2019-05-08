@@ -17,13 +17,17 @@ class FormButton extends Component {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
+            author: '',
+            comment: ''
         };
     }
 
     handleOpen = () => {
         this.setState({
-            open: true
+            open: true,
+            author: '',
+            comment: ''
         });
     }
 
@@ -35,15 +39,24 @@ class FormButton extends Component {
 
     handleConfirm = () => {
         //  triggers redux event
+        const { addComment } = this.props;
+        const { author, comment } = this.state;
+        addComment({author, comment});
 
         this.setState({
             open: false
         });
     }
 
+    handleChange = field => event => {
+        this.setState({
+            [field]: event.target.value
+        })
+    }
+
     render() {
         const { classes, title, form, actions } = this.props;
-        const { open } = this.state;
+        const { open, author, comment } = this.state;
 
         return (
             <Fragment>
@@ -67,7 +80,35 @@ class FormButton extends Component {
                             {title}
                         </DialogTitle>
                         <DialogContent>
-                            {form}
+                            {
+                                form || (
+                                    <Fragment>
+                                        <TextField
+                                            // id="outlined-multiline-flexible"
+                                            label='Your Name'
+                                            value={author}
+                                            onChange={this.handleChange('author')}
+                                            // className={classes.textField}
+                                            margin="normal"
+                                            // helperText="hello"
+                                            variant="outlined"
+                                            
+                                        />
+                                        <br />
+                                        <TextField
+                                            // id="outlined-multiline-flexible"
+                                            label='Comment'
+                                            multiline
+                                            value={comment}
+                                            onChange={this.handleChange('comment')}
+                                            // className={classes.textField}
+                                            margin="normal"
+                                            // helperText="hello"
+                                            variant="outlined"
+                                        />
+                                    </Fragment>
+                                )
+                            }
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.handleClose} color="primary">
