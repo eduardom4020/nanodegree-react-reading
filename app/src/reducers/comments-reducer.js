@@ -1,7 +1,8 @@
 import { 
     SET_COMMENTS,
     ADD_COMMENT,
-    DELETE_COMMENT
+    DELETE_COMMENT,
+    EDIT_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,8 @@ const CommentsReducer = (state = initialState, action) => {
         case DELETE_COMMENT:
             // const { comment } = action;
             return state.map(comment => action.id === comment.id ? {...comment, deleted: true} : comment);
+        case EDIT_COMMENT:
+            return {...state, [action.id]: {...state[action.id], body: action.newComment}}
         // case VOTE:
         //     const { postId, score } = action;
         //     return {

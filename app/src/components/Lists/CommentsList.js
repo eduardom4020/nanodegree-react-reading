@@ -11,6 +11,7 @@ import Icon from '@material-ui/core/Icon';
 
 import InitialsAvatar from '../Avatars/InitialsAvatar';
 import DeleteCommentButtonContainer from '../Containers/DeleteCommentButtonContainer';
+import EditCommentButtonContainer from '../Containers/EditCommentButtonContainer';
 
 const CommentsList = ({classes, comments=[]}) => (
     <List className={classes.root}>
@@ -70,6 +71,7 @@ const CommentsList = ({classes, comments=[]}) => (
                                 >
                                     {` — Score: ${comment.voteScore}`}
                                 </Typography>
+                                <EditCommentButtonContainer id={comment.id} />
                                 <DeleteCommentButtonContainer id={comment.id} />
                             </div>
                         </div>

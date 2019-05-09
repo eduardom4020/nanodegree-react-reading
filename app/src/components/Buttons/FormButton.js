@@ -4,6 +4,7 @@ import styles from './styles/FormButtonStyles';
 
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -45,7 +46,7 @@ class FormButton extends Component {
 
     handleConfirm = () => {
         //  triggers redux event
-        const { addComment, addPost, orderPosts, type } = this.props;
+        const { addComment, addPost, editComment, orderPosts, type, id } = this.props;
         const { author, comment, body, title, category } = this.state;
 
         if(type === 'addPost') {
@@ -53,6 +54,9 @@ class FormButton extends Component {
             orderPosts([category]);
         } else if(type === 'addComment') {
             addComment({author, comment});
+        } else if(type === 'editComment') {
+            const newComment = comment;
+            editComment({id, newComment});
         }
 
         this.setState({
@@ -67,23 +71,41 @@ class FormButton extends Component {
     }
 
     render() {
-        const { classes, textTitle, type } = this.props;
+        const { classes, textTitle, type, isFab=true, iconName } = this.props;
         const { open, author, comment, title, category, body } = this.state;
 
         return (
             <Fragment>
-                <Fab 
-                    color={type && (
-                        (type == 'addComment' && 'secondary') ||
-                        (type == 'addPost' && 'primary')
-                    )} 
-                    aria-label="Add" 
-                    className={classes.fab}
-                    onClick={this.handleOpen}
-                    // fullScreen={true}
-                >
-                    <Icon>add</Icon>
-                </Fab>
+                {
+                    isFab ? 
+                        (
+                            <Fab 
+                                color={type && (
+                                    (type == 'addComment' && 'secondary') ||
+                                    (type == 'addPost' && 'primary')
+                                )} 
+                                aria-label={type} 
+                                className={classes.fab}
+                                onClick={this.handleOpen}
+                                // fullScreen={true}
+                            >
+                                <Icon>
+                                    {iconName || 'add'}
+                                </Icon>
+                            </Fab>
+                        )
+                    :
+                        (
+                            <IconButton
+                                onClick={this.handleOpen}
+                                aria-label={type}
+                            >
+                                <Icon>
+                                    {iconName || 'add'}
+                                </Icon>
+                            </IconButton>
+                        )
+                }
 
                 <Dialog
                     open={open}
@@ -95,20 +117,24 @@ class FormButton extends Component {
                             {textTitle}
                         </DialogTitle>
                         <DialogContent>
-                            <TextField
-                                // id="outlined-multiline-flexible"
-                                label='Your Name'
-                                value={author}
-                                onChange={this.handleChange('author')}
-                                // className={classes.textField}
-                                margin="normal"
-                                // helperText="hello"
-                                variant="outlined"
-                                
-                            />
+                            {
+                                type === 'addComment' || type === 'addPost' && (
+                                    <TextField
+                                        // id="outlined-multiline-flexible"
+                                        label='Your Name'
+                                        value={author}
+                                        onChange={this.handleChange('author')}
+                                        // className={classes.textField}
+                                        margin="normal"
+                                        // helperText="hello"
+                                        variant="outlined"
+                                        
+                                    />
+                                )
+                            }
                             <br />
                             {
-                                type == 'addComment' && (
+                                type === 'addComment' || type === 'editComment' && (
                                     <TextField
                                         // id="outlined-multiline-flexible"
                                         label='Comment'
@@ -123,7 +149,7 @@ class FormButton extends Component {
                                 )
                             }
                             {
-                                type == 'addPost' && (
+                                type === 'addPost' && (
                                     <Fragment>
                                         <TextField
                                             // id="outlined-multiline-flexible"
