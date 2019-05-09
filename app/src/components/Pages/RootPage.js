@@ -7,6 +7,8 @@ import ItemsList from '../Lists/ItemsList';
 
 import CategoryHeader from '../Headers/CategoryHeader';
 
+import AddPostFormButtonContainer from '../Containers/AddPostFormButtonContainer';
+
 const RootPage = ({categories, posts, postsOrder}) => (
     <Fragment>
         <Typography variant='h2'>
@@ -26,6 +28,7 @@ const RootPage = ({categories, posts, postsOrder}) => (
                                 .map(post => posts[post.id])
                         }
                     />
+                    <AddPostFormButtonContainer textTitle='Are you thinking in...' />
                 </Fragment>
             ))
         }

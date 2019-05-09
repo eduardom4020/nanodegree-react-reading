@@ -1,10 +1,13 @@
 import { 
     SET_POSTS,
     ORDER_POSTS,
-    VOTE
+    VOTE,
+    ADD_POST,
+    DELETE_POST
 } from './types';
 
 import { MainStore } from '../store/base-stores';
+import { newUUIDv4 } from '../helpers/data-helpers';
 
 export const setPosts = (POSTS=[]) => {
     try {
@@ -67,3 +70,53 @@ export const vote = (postId, voteType, voteClass='normal') => {
         console.error('On voting: ', err);
     }
 }
+
+export const addPost = ({author, body, title, category}) => {
+    try {
+        if(!author) {
+            throw 'Cannot add post without author'
+        }
+
+        if(!title) {
+            throw 'Cannot add post without title'
+        }
+
+        if(!category) {
+            throw 'Cannot add post without category'
+        }
+
+        const post = {
+            id: newUUIDv4(),
+            timestamp: Date.now(),
+            title,
+            body,
+            author,
+            category,
+            voteScore: 1,
+            deleted: false,
+            commentCount: 0
+        }
+
+        // sendCommentToServer({post});
+
+        return {
+            type: ADD_POST,
+            post
+        }
+    } catch(err) {
+        console.error('On setting posts: ', err);
+    }
+};
+
+export const deletePost = ({id}) => {
+    try {
+        // setCommentAsDeleted({id});
+
+        return {
+            type: DELETE_POST,
+            id
+        }
+    } catch(err) {
+        console.error('On setting posts: ', err);
+    }
+};

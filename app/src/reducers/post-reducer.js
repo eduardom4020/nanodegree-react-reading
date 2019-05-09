@@ -1,6 +1,8 @@
 import { 
     SET_POSTS,
-    VOTE
+    VOTE,
+    ADD_POST,
+    DELETE_POST
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +32,12 @@ const PostReducer = (state = initialState, action) => {
                     voteScore: state[postId].voteScore + score
                 }
             }
+        case ADD_POST:
+            const { post } = action;
+            return {...state, [post.id]: post}
+        case DELETE_POST:
+            // const { comment } = action;
+            return state.map(post => post.id === post.id ? {...post, deleted: true} : post);
         default:
             return state;
     }

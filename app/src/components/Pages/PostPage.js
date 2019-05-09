@@ -15,7 +15,7 @@ const PostPage = ({classes}) => (
         </Typography>
         <PostCardContainer />
         <CommentsListContainer />
-        <AddCommentFormButtonContainer title='Add a comment to this post:' />
+        <AddCommentFormButtonContainer textTitle='Add a comment to this post:' />
     </Fragment>
 );
 

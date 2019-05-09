@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { addComment } from '../../actions/comment-actions';
+import { addPost, orderPosts } from '../../actions/post-actions';
 
 import FormButton from '../Buttons/FormButton';
 
-const AddCommentFormButtonContainer = props => (
-    <FormButton {...props} type={'addComment'} />
+const AddPostFormButtonContainer = props => (
+    <FormButton {...props} type={'addPost'} />
 );
 
 const mapStateToProps = () => ({});
@@ -15,10 +15,11 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => (
     bindActionCreators(
         {
-            addComment
+            addPost,
+            orderPosts
         }, 
         dispatch
     )
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddCommentFormButtonContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AddPostFormButtonContainer);

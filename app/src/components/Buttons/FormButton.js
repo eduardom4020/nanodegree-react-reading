@@ -19,7 +19,10 @@ class FormButton extends Component {
         this.state = {
             open: false,
             author: '',
-            comment: ''
+            comment: '',
+            body: '', 
+            title: '', 
+            category: '' //change to dropdown
         };
     }
 
@@ -27,7 +30,10 @@ class FormButton extends Component {
         this.setState({
             open: true,
             author: '',
-            comment: ''
+            comment: '',
+            body: '', 
+            title: '', 
+            category: ''
         });
     }
 
@@ -39,9 +45,15 @@ class FormButton extends Component {
 
     handleConfirm = () => {
         //  triggers redux event
-        const { addComment } = this.props;
-        const { author, comment } = this.state;
-        addComment({author, comment});
+        const { addComment, addPost, orderPosts, type } = this.props;
+        const { author, comment, body, title, category } = this.state;
+
+        if(type === 'addPost') {
+            addPost({author, body, title, category });
+            orderPosts([category]);
+        } else if(type === 'addComment') {
+            addComment({author, comment});
+        }
 
         this.setState({
             open: false
@@ -55,13 +67,16 @@ class FormButton extends Component {
     }
 
     render() {
-        const { classes, title, form, actions } = this.props;
-        const { open, author, comment } = this.state;
+        const { classes, textTitle, type } = this.props;
+        const { open, author, comment, title, category, body } = this.state;
 
         return (
             <Fragment>
                 <Fab 
-                    color="secondary" 
+                    color={type && (
+                        (type == 'addComment' && 'secondary') ||
+                        (type == 'addPost' && 'primary')
+                    )} 
                     aria-label="Add" 
                     className={classes.fab}
                     onClick={this.handleOpen}
@@ -77,30 +92,67 @@ class FormButton extends Component {
                     // className={classes.dialog}
                 >
                         <DialogTitle id="form-dialog-title">
-                            {title}
+                            {textTitle}
                         </DialogTitle>
                         <DialogContent>
+                            <TextField
+                                // id="outlined-multiline-flexible"
+                                label='Your Name'
+                                value={author}
+                                onChange={this.handleChange('author')}
+                                // className={classes.textField}
+                                margin="normal"
+                                // helperText="hello"
+                                variant="outlined"
+                                
+                            />
+                            <br />
                             {
-                                form || (
+                                type == 'addComment' && (
+                                    <TextField
+                                        // id="outlined-multiline-flexible"
+                                        label='Comment'
+                                        multiline
+                                        value={comment}
+                                        onChange={this.handleChange('comment')}
+                                        // className={classes.textField}
+                                        margin="normal"
+                                        // helperText="hello"
+                                        variant="outlined"
+                                    />
+                                )
+                            }
+                            {
+                                type == 'addPost' && (
                                     <Fragment>
                                         <TextField
                                             // id="outlined-multiline-flexible"
-                                            label='Your Name'
-                                            value={author}
-                                            onChange={this.handleChange('author')}
+                                            label='Title'
+                                            value={title}
+                                            onChange={this.handleChange('title')}
                                             // className={classes.textField}
                                             margin="normal"
                                             // helperText="hello"
                                             variant="outlined"
-                                            
                                         />
                                         <br />
                                         <TextField
                                             // id="outlined-multiline-flexible"
-                                            label='Comment'
+                                            label='Category'
+                                            value={category}
+                                            onChange={this.handleChange('category')}
+                                            // className={classes.textField}
+                                            margin="normal"
+                                            // helperText="hello"
+                                            variant="outlined"
+                                        />
+                                        <br />
+                                        <TextField
+                                            // id="outlined-multiline-flexible"
+                                            label='Discussion'
                                             multiline
-                                            value={comment}
-                                            onChange={this.handleChange('comment')}
+                                            value={body}
+                                            onChange={this.handleChange('body')}
                                             // className={classes.textField}
                                             margin="normal"
                                             // helperText="hello"
