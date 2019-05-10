@@ -46,8 +46,23 @@ class FormButton extends Component {
 
     handleConfirm = () => {
         //  triggers redux event
-        const { addComment, addPost, editComment, orderPosts, type, id } = this.props;
-        const { author, comment, body, title, category } = this.state;
+        const { 
+            addComment, 
+            addPost, 
+            editComment, 
+            orderPosts, 
+            editPost,
+            type, 
+            id 
+        } = this.props;
+
+        const { 
+            author, 
+            comment, 
+            body, 
+            title, 
+            category 
+        } = this.state;
 
         if(type === 'addPost') {
             addPost({author, body, title, category });
@@ -57,6 +72,10 @@ class FormButton extends Component {
         } else if(type === 'editComment') {
             const newComment = comment;
             editComment({id, newComment});
+        } else if(type === 'editPost') {
+            const newBody = body;
+            const newTitle = title;
+            editPost({id, newTitle, newBody});
         }
 
         this.setState({
@@ -149,7 +168,7 @@ class FormButton extends Component {
                                 )
                             }
                             {
-                                type === 'addPost' && (
+                                type === 'addPost' || type === 'editPost' && (
                                     <Fragment>
                                         <TextField
                                             // id="outlined-multiline-flexible"
@@ -162,16 +181,20 @@ class FormButton extends Component {
                                             variant="outlined"
                                         />
                                         <br />
-                                        <TextField
-                                            // id="outlined-multiline-flexible"
-                                            label='Category'
-                                            value={category}
-                                            onChange={this.handleChange('category')}
-                                            // className={classes.textField}
-                                            margin="normal"
-                                            // helperText="hello"
-                                            variant="outlined"
-                                        />
+                                        {
+                                            type === 'addPost' && (
+                                                <TextField
+                                                    // id="outlined-multiline-flexible"
+                                                    label='Category'
+                                                    value={category}
+                                                    onChange={this.handleChange('category')}
+                                                    // className={classes.textField}
+                                                    margin="normal"
+                                                    // helperText="hello"
+                                                    variant="outlined"
+                                                />
+                                            )
+                                        }
                                         <br />
                                         <TextField
                                             // id="outlined-multiline-flexible"

@@ -3,7 +3,8 @@ import {
     ORDER_POSTS,
     VOTE,
     ADD_POST,
-    DELETE_POST
+    DELETE_POST,
+    EDIT_POST
 } from './types';
 
 import { MainStore } from '../store/base-stores';
@@ -118,5 +119,24 @@ export const deletePost = ({id}) => {
         }
     } catch(err) {
         console.error('On setting posts: ', err);
+    }
+};
+
+export const editPost = ({id, newTitle, newBody}) => {
+    try {
+        if(!id) {
+            throw 'Cannot edit posts without id'
+        }
+
+        // editCommentInServer({comment});
+
+        return {
+            type: EDIT_POST,
+            id, 
+            title: newTitle, 
+            body: newBody
+        }
+    } catch(err) {
+        console.error('On edit post: ', err);
     }
 };

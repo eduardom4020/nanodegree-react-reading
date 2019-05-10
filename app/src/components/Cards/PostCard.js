@@ -22,6 +22,8 @@ import IMG_PLACEHOLDER from '../../images/placeholder.png';
 import VoteButtonContainer from '../Buttons/VoteButtonContainer';
 import InitialsAvatar from '../Avatars/InitialsAvatar';
 
+import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
+
 class PostCard extends Component {
     constructor(props) {
         super(props);
@@ -42,11 +44,9 @@ class PostCard extends Component {
                             tooltipText={`Author: ${author}`}
                         />
                     }
-                    // action={
-                    //     <IconButton>
-                    //     <MoreVertIcon />
-                    //     </IconButton>
-                    // }
+                    action={
+                        <EditPostButtonContainer id={post.id} />
+                    }
                     title={title}
                     subheader={`${date.toDateString()} ${date.toTimeString()}`}
                 />
@@ -63,9 +63,13 @@ class PostCard extends Component {
                     >
                         subdirectory_arrow_right
                     </Icon>
-                    <Typography component='p'>
-                        {body}
-                    </Typography>
+                    {
+                        body.split('\n').map(token => (
+                            <Typography component='p'>
+                                {token}
+                            </Typography>
+                        ))
+                    }
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
                     <VoteButtonContainer voteType='like' />

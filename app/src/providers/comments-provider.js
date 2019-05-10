@@ -61,3 +61,25 @@ export const setCommentAsDeleted = async ({ id }, origin=ORIGIN) => {
         return null;
     }
 }
+
+export const editCommentInServer = async ({ comment }, origin=ORIGIN) => {
+    try {
+        const {data} = await axios.put(
+            `${origin}/comments/${comment.id}`,
+            {
+                timestamp: comment.timestamp,
+                body: comment.body,
+            },
+            {
+                headers: {
+                    'Authorization': 'random-token'
+                }
+            }
+        );
+
+        return data;
+    } catch(e) {
+        console.log('ERROR: ', e);
+        return null;
+    }
+}

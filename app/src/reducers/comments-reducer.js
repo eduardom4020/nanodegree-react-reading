@@ -29,7 +29,15 @@ const CommentsReducer = (state = initialState, action) => {
             // const { comment } = action;
             return state.map(comment => action.id === comment.id ? {...comment, deleted: true} : comment);
         case EDIT_COMMENT:
-            return {...state, [action.id]: {...state[action.id], body: action.newComment}}
+            const { id, body, timestamp } = action.comment;
+            return {
+                ...state, 
+                [id]: {
+                    ...state[id], 
+                    body,
+                    timestamp
+                }
+            };
         // case VOTE:
         //     const { postId, score } = action;
         //     return {

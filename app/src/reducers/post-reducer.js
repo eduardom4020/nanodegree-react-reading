@@ -2,7 +2,8 @@ import {
     SET_POSTS,
     VOTE,
     ADD_POST,
-    DELETE_POST
+    DELETE_POST,
+    EDIT_POST
 } from '../actions/types';
 
 const initialState = {
@@ -38,6 +39,16 @@ const PostReducer = (state = initialState, action) => {
         case DELETE_POST:
             // const { comment } = action;
             return state.map(post => post.id === post.id ? {...post, deleted: true} : post);
+        case EDIT_POST:
+            const { id, body, title } = action;
+            return {
+                ...state, 
+                [id]: {
+                    ...state[id], 
+                    body,
+                    title
+                }
+            };
         default:
             return state;
     }

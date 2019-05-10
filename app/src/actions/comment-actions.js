@@ -9,7 +9,11 @@ import { getFromPath } from '../helpers/url-helpers';
 import { newUUIDv4 } from '../helpers/data-helpers';
 
 // import { MainStore } from '../store/base-stores';
-import { sendCommentToServer, setCommentAsDeleted } from '../providers/comments-provider';
+import { 
+    sendCommentToServer, 
+    setCommentAsDeleted,
+    editCommentInServer
+} from '../providers/comments-provider';
 
 export const setComments = (inputComments={}) => {
     try {
@@ -76,23 +80,17 @@ export const editComment = ({id, newComment}) => {
             throw 'Cannot edit comments without id'
         }
 
-        // comment = {
-        //     id: newUUIDv4(),
-        //     parentId: parentId || getFromPath(),
-        //     timestamp: Date.now(),
-        //     body: comment,
-        //     author,
-        //     voteScore: 1,
-        //     deleted: false,
-        //     parentDeleted: false
-        // }
+        const comment = {
+            id,
+            timestamp: Date.now(),
+            body: newComment
+        }
 
-        // sendCommentToServer({comment});
+        editCommentInServer({comment});
 
         return {
             type: EDIT_COMMENT,
-            id,
-            newComment
+            comment
         }
     } catch(err) {
         console.error('On edit comment: ', err);
