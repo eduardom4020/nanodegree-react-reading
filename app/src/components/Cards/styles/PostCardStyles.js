@@ -1,31 +1,35 @@
 const styles = theme => ({
     card: {
-      width: '90%',
-      margin: '2vh 0 0 5%'
+        width: '90%',
+        margin: '2vh 0 0 5%'
     },
     media: {
-      height: 0,
-      maxHeight: '10%',
-      paddingTop: '15%', // 16:9
+        height: 0,
+        maxHeight: '10%',
+        paddingTop: '15%', // 16:9
     },
     actions: {
-      display: 'flex',
+        display: 'flex',
     },
     expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
     },
     expandOpen: {
-      transform: 'rotate(180deg)',
+        transform: 'rotate(180deg)',
     },
     enterIcon: {
         fontSize: '2.3em !important',
-        color: '#dbdbdb'
+        color: '#dbdbdb',
     },
     body: {
+        display: 'block',
+        textAlign: 'justify'
+    },
+    inline: {
         display: 'inline-flex',
         alignItems: 'baseline'
     }

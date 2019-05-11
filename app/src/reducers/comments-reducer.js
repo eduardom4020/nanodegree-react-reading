@@ -35,7 +35,7 @@ const CommentsReducer = (state = initialState, action) => {
                 [id]: {
                     ...state[id], 
                     body,
-                    timestamp
+                    // timestamp
                 }
             };
         // case VOTE:

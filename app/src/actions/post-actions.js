@@ -1,7 +1,6 @@
 import { 
     SET_POSTS,
     ORDER_POSTS,
-    VOTE,
     ADD_POST,
     DELETE_POST,
     EDIT_POST
@@ -9,6 +8,12 @@ import {
 
 import { MainStore } from '../store/base-stores';
 import { newUUIDv4 } from '../helpers/data-helpers';
+
+import { 
+    sendPostToServer, 
+    setPostAsDeleted,
+    editPostInServer
+} from '../providers/posts-provider';
 
 export const setPosts = (POSTS=[]) => {
     try {
@@ -53,25 +58,6 @@ export const orderPosts = (categoriesPaths, orderBy='voteScore', invert=false) =
     }
 };
 
-export const vote = (postId, voteType, voteClass='normal') => {
-    try {
-        const score = (voteType === 'like' ? 1 : -1) * (
-            voteClass === 'normal' ? 
-                1
-            :
-                0
-        );
-
-        return {
-            type: VOTE,
-            postId,
-            score
-        }
-    } catch(err) {
-        console.error('On voting: ', err);
-    }
-}
-
 export const addPost = ({author, body, title, category}) => {
     try {
         if(!author) {
@@ -98,7 +84,7 @@ export const addPost = ({author, body, title, category}) => {
             commentCount: 0
         }
 
-        // sendCommentToServer({post});
+        sendPostToServer({post});
 
         return {
             type: ADD_POST,
@@ -111,7 +97,7 @@ export const addPost = ({author, body, title, category}) => {
 
 export const deletePost = ({id}) => {
     try {
-        // setCommentAsDeleted({id});
+        setPostAsDeleted({id});
 
         return {
             type: DELETE_POST,
@@ -128,13 +114,17 @@ export const editPost = ({id, newTitle, newBody}) => {
             throw 'Cannot edit posts without id'
         }
 
-        // editCommentInServer({comment});
-
-        return {
-            type: EDIT_POST,
+        const post = {
             id, 
             title: newTitle, 
             body: newBody
+        }
+
+        editPostInServer({post});
+
+        return {
+            type: EDIT_POST,
+            ...post
         }
     } catch(err) {
         console.error('On edit post: ', err);

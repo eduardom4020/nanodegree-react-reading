@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -19,7 +19,7 @@ import styles from './styles/PostCardStyles';
 
 import IMG_PLACEHOLDER from '../../images/placeholder.png';
 
-import VoteButtonContainer from '../Buttons/VoteButtonContainer';
+import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 import InitialsAvatar from '../Avatars/InitialsAvatar';
 
 import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
@@ -58,22 +58,33 @@ class PostCard extends Component {
                 <CardContent
                     className={classes.body}
                 >
-                    <Icon
-                        className={classes.enterIcon}
-                    >
-                        subdirectory_arrow_right
-                    </Icon>
                     {
-                        body.split('\n').map(token => (
-                            <Typography component='p'>
-                                {token}
-                            </Typography>
+                        body.split('\n').map((token, index) => (
+                            index === 0 ? (
+                                <Fragment>
+                                    <div className={classes.inline}>
+                                        <Icon
+                                            className={classes.enterIcon}
+                                        >
+                                            subdirectory_arrow_right
+                                        </Icon>
+                                        <Typography component='p'>
+                                            {token}
+                                        </Typography>
+                                    </div>
+                                    <p />
+                                </Fragment>
+                            ) 
+                            :
+                                <Typography component='p'>
+                                    {token}
+                                </Typography>
                         ))
                     }
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                    <VoteButtonContainer voteType='like' />
-                    <VoteButtonContainer voteType='unlike' />
+                    <VoteOnPostButtonContainer voteType='like' />
+                    <VoteOnPostButtonContainer voteType='unlike' />
                 {/* <IconButton aria-label="Add to favorites">
                     <FavoriteIcon />
                 </IconButton>

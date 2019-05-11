@@ -1,6 +1,6 @@
 import { 
     SET_POSTS,
-    VOTE,
+    VOTE_ON_POST,
     ADD_POST,
     DELETE_POST,
     EDIT_POST
@@ -24,7 +24,7 @@ const PostReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_POSTS:
             return action.posts;
-        case VOTE:
+        case VOTE_ON_POST:
             const { postId, score } = action;
             return {
                 ...state, 

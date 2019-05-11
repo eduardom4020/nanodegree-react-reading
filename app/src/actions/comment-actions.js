@@ -82,7 +82,7 @@ export const editComment = ({id, newComment}) => {
 
         const comment = {
             id,
-            timestamp: Date.now(),
+            // timestamp: Date.now(),
             body: newComment
         }
 

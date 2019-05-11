@@ -90,7 +90,7 @@ class FormButton extends Component {
     }
 
     render() {
-        const { classes, textTitle, type, isFab=true, iconName } = this.props;
+        const { classes, textTitle, type, isFab=true, iconName, color } = this.props;
         const { open, author, comment, title, category, body } = this.state;
 
         return (
@@ -119,7 +119,7 @@ class FormButton extends Component {
                                 onClick={this.handleOpen}
                                 aria-label={type}
                             >
-                                <Icon>
+                                <Icon style={{color: color || '#00000060'}}>
                                     {iconName || 'add'}
                                 </Icon>
                             </IconButton>
@@ -130,14 +130,16 @@ class FormButton extends Component {
                     open={open}
                     onClose={this.handleClose}
                     aria-labelledby="form-button-dialog"
-                    // className={classes.dialog}
+                    fullWidth
+                    maxWidth='lg'
+                    scroll='body'
                 >
                         <DialogTitle id="form-dialog-title">
                             {textTitle}
                         </DialogTitle>
                         <DialogContent>
                             {
-                                type === 'addComment' || type === 'addPost' && (
+                                (type === 'addComment' || type === 'addPost') && (
                                     <TextField
                                         // id="outlined-multiline-flexible"
                                         label='Your Name'
@@ -147,13 +149,13 @@ class FormButton extends Component {
                                         margin="normal"
                                         // helperText="hello"
                                         variant="outlined"
-                                        
+                                        fullWidth
                                     />
                                 )
                             }
                             <br />
                             {
-                                type === 'addComment' || type === 'editComment' && (
+                                (type === 'addComment' || type === 'editComment') && (
                                     <TextField
                                         // id="outlined-multiline-flexible"
                                         label='Comment'
@@ -164,11 +166,12 @@ class FormButton extends Component {
                                         margin="normal"
                                         // helperText="hello"
                                         variant="outlined"
+                                        fullWidth
                                     />
                                 )
                             }
                             {
-                                type === 'addPost' || type === 'editPost' && (
+                                (type === 'addPost' || type === 'editPost') && (
                                     <Fragment>
                                         <TextField
                                             // id="outlined-multiline-flexible"
@@ -179,10 +182,11 @@ class FormButton extends Component {
                                             margin="normal"
                                             // helperText="hello"
                                             variant="outlined"
+                                            fullWidth
                                         />
                                         <br />
                                         {
-                                            type === 'addPost' && (
+                                            (type === 'addPost') && (
                                                 <TextField
                                                     // id="outlined-multiline-flexible"
                                                     label='Category'
@@ -192,6 +196,7 @@ class FormButton extends Component {
                                                     margin="normal"
                                                     // helperText="hello"
                                                     variant="outlined"
+                                                    fullWidth
                                                 />
                                             )
                                         }
@@ -206,6 +211,7 @@ class FormButton extends Component {
                                             margin="normal"
                                             // helperText="hello"
                                             variant="outlined"
+                                            fullWidth
                                         />
                                     </Fragment>
                                 )

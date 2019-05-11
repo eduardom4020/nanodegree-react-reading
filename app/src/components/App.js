@@ -5,9 +5,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { RootPage, PostPage, CategoryPage } from './Pages';
 
 import {
-    getAllCategories,
-    getPostsByCatagory
+    getAllCategories
 } from '../providers/categories-provider';
+
+import {
+    getPostsByCatagory
+} from '../providers/posts-provider';
 
 import {
     setCategories
@@ -34,7 +37,6 @@ class App extends Component {
         const posts = await Promise.all(categories.map(category => (
             getPostsByCatagory({category: category.path})
         )));
-        // console.log('ON MOUNTING APP', categories, posts);
 
         setCategories(categories);
         setPosts(posts);
@@ -45,14 +47,6 @@ class App extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // const { posts: prevPosts } = prevProps;
-        // const { posts, categories, orderPosts } = this.props;
-
-        // if(JSON.stringify(prevPosts) !== JSON.stringify(posts)) {
-        //     // console.log('BEFORE ORDERING POSTS', Object.values(posts))
-        //     const categoriesPaths = categories.map(category => category.path);
-        //     orderPosts(categoriesPaths);
-        // }
         const { firstLoad } = this.state;
 
         if(firstLoad === false) {

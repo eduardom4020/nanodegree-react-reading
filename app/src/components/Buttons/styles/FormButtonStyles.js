@@ -4,10 +4,6 @@ const styles = theme => ({
         position: 'fixed',
         right: 0,
         bottom: 0
-    },
-    dialog: {
-        width: '60% !important',
-        minHeight: '10vh !important'
     }
 });
 

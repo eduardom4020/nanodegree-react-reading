@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { ORIGIN } from '../constants/requests-constants';
 
-export const getCommentsByPost = async ({ post }, origin=ORIGIN) => {
+export const getPostsByCatagory = async ({category}, origin=ORIGIN) => {
     try {
         const {data} = await axios.get(
-            `${origin}/posts/${post}/comments`,
+            `${origin}/${category}/posts`,
             {
                 headers: {
                     'Authorization': 'random-token'
@@ -19,16 +19,51 @@ export const getCommentsByPost = async ({ post }, origin=ORIGIN) => {
     }
 }
 
-export const sendCommentToServer = async ({ comment }, origin=ORIGIN) => {
+export const sendPostToServer = async ({ post }, origin=ORIGIN) => {
     try {
         const {data} = await axios.post(
-            `${origin}/comments`,
+            `${origin}/posts`,
+            post,
             {
-                id: comment.id,
-                timestamp: comment.timestamp,
-                body: comment.body,
-                author: comment.author,
-                parentId: comment.parentId
+                headers: {
+                    'Authorization': 'random-token'
+                }
+            }
+        );
+
+        return data;
+    } catch(e) {
+        console.log('ERROR: ', e);
+        return null;
+    }
+}
+
+export const setPostAsDeleted = async ({ id }, origin=ORIGIN) => {
+    try {
+        const {data} = await axios.delete(
+            `${origin}/posts/${id}`,
+            {
+                headers: {
+                    'Authorization': 'random-token'
+                }
+            }
+        );
+
+        return data;
+    } catch(e) {
+        console.log('ERROR: ', e);
+        return null;
+    }
+}
+
+export const editPostInServer = async ({ post }, origin=ORIGIN) => {
+    try {
+        const {data} = await axios.put(
+            `${origin}/posts/${post.id}`,
+            {
+                // timestamp: post.timestamp,
+                body: post.body,
+                title: post.title
             },
             {
                 headers: {
@@ -44,30 +79,13 @@ export const sendCommentToServer = async ({ comment }, origin=ORIGIN) => {
     }
 }
 
-export const setCommentAsDeleted = async ({ id }, origin=ORIGIN) => {
+export const vote = async ({ id, voteType }, origin=ORIGIN) => {
     try {
-        const {data} = await axios.delete(
-            `${origin}/comments/${id}`,
+        const {data} = await axios.post(
+            `${origin}/posts/${id}`,
             {
-                headers: {
-                    'Authorization': 'random-token'
-                }
-            }
-        );
-
-        return data;
-    } catch(e) {
-        console.log('ERROR: ', e);
-        return null;
-    }
-}
-
-export const editCommentInServer = async ({ comment }, origin=ORIGIN) => {
-    try {
-        const {data} = await axios.put(
-            `${origin}/comments/${comment.id}`,
-            {
-                body: comment.body,
+                option: (voteType === 'like' && 'upVote') ||
+                    (voteType === 'unlike' && 'downVote')
             },
             {
                 headers: {

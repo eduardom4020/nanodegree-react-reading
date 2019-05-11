@@ -1,4 +1,7 @@
 import React, {Fragment} from 'react';
+import {withRouter} from 'react-router-dom';
+import {clickRedirectTo} from '../../helpers/history-helper';
+
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,17 +10,21 @@ import img_not_available from '../../images/placeholder.png';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles/ItemsListStyles';
 
-import VoteButtonContainer from '../Buttons/VoteButtonContainer';
+import AddCommentFormButtonContainer from '../Containers/AddCommentFormButtonContainer';
+import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
 
-const SimplePostTile = ({classes, title, id, voteScore, commentCount, category}) => (
+import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
+
+const SimplePostTile = ({classes, title, id, voteScore, commentCount, category, history}) => (
     <GridListTile 
         key={`${title}-${id}`}
         className={classes.sm_tile}
-    >   
+    >  
         <img 
             src={img_not_available} 
             alt={title} 
             className={classes.tile_img}
+            onClick={clickRedirectTo(`${category}/${id}`, history)}
         />
         <GridListTileBar
             title={title}
@@ -25,6 +32,14 @@ const SimplePostTile = ({classes, title, id, voteScore, commentCount, category})
                 root: classes.titleBar,
                 title: classes.title,
             }}
+            actionIcon={
+                <Fragment>
+                    <EditPostButtonContainer 
+                        id={id} 
+                        color='white'
+                    />
+                </Fragment>
+            }
         />
         <GridListTileBar
             subtitle={
@@ -40,15 +55,17 @@ const SimplePostTile = ({classes, title, id, voteScore, commentCount, category})
             }}
             actionIcon={
                 <Fragment>
-                    <VoteButtonContainer voteType='like' postId={id} category={category}/>
-                    <VoteButtonContainer voteType='unlike' postId={id} category={category}/>
-                    <IconButton className={classes.contentBt}>
-                        <Icon className={classes.title}>add_comment</Icon>
-                    </IconButton>
+                    <VoteOnPostButtonContainer voteType='like' postId={id} category={category}/>
+                    <VoteOnPostButtonContainer voteType='unlike' postId={id} category={category}/>
+                    <AddCommentFormButtonContainer 
+                        iconName='add_comment' 
+                        isFab={false}
+                        color='white'
+                    />
                 </Fragment>
             }
         />
     </GridListTile>
 );
 
-export default withStyles(styles)(SimplePostTile);
+export default withRouter(withStyles(styles)(SimplePostTile));
