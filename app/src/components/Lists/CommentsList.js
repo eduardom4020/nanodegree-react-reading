@@ -71,7 +71,10 @@ const CommentsList = ({classes, comments=[]}) => (
                                 >
                                     {` — Score: ${comment.voteScore}`}
                                 </Typography>
-                                <EditCommentButtonContainer id={comment.id} />
+                                <EditCommentButtonContainer 
+                                    id={comment.id}
+                                    comment={comment.body}
+                                />
                                 <DeleteCommentButtonContainer id={comment.id} />
                             </div>
                         </div>

@@ -3,7 +3,10 @@ import {
     VOTE_ON_POST,
     ADD_POST,
     DELETE_POST,
-    EDIT_POST
+    EDIT_POST,
+
+    ADD_COMMENT,
+    DELETE_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -47,6 +50,22 @@ const PostReducer = (state = initialState, action) => {
                     ...state[id], 
                     body,
                     title
+                }
+            };
+        case ADD_COMMENT:
+            return {
+                ...state,
+                [action.comment.parentId]: {
+                    ...state[action.comment.parentId], 
+                    commentCount: state[action.comment.parentId].commentCount + 1
+                }
+            };
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                [action.comment.parentId]: {
+                    ...state[action.comment.parentId], 
+                    commentCount: state[action.comment.parentId].commentCount - 1
                 }
             };
         default:

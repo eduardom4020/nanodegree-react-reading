@@ -45,7 +45,11 @@ class PostCard extends Component {
                         />
                     }
                     action={
-                        <EditPostButtonContainer id={post.id} />
+                        <EditPostButtonContainer 
+                            id={post.id}
+                            title={title}
+                            body={body}
+                        />
                     }
                     title={title}
                     subheader={`${date.toDateString()} ${date.toTimeString()}`}

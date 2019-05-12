@@ -18,7 +18,7 @@ import {
 export const setComments = (inputComments={}) => {
     try {
         const commentsArray = inputComments.constructor === Array && inputComments;
-        const treatedComments = commentsArray && (
+        const treatedComments = commentsArray && commentsArray.length > 0 && (
             commentsArray.map(comment => ({[comment.id]: comment}))
                 .reduce((acc, curr) => ({...acc, ...curr}))
         );

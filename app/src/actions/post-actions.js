@@ -15,6 +15,8 @@ import {
     editPostInServer
 } from '../providers/posts-provider';
 
+import { redirectTo } from '../helpers/history-helper';
+
 export const setPosts = (POSTS=[]) => {
     try {
         const preTreatedPosts = POSTS.reduce((acc, curr) => ([...acc, ...curr]));
@@ -98,7 +100,7 @@ export const addPost = ({author, body, title, category}) => {
 export const deletePost = ({id}) => {
     try {
         setPostAsDeleted({id});
-
+        
         return {
             type: DELETE_POST,
             id

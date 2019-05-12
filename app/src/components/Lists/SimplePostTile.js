@@ -15,7 +15,7 @@ import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
 
 import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 
-const SimplePostTile = ({classes, title, id, voteScore, commentCount, category, history}) => (
+const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, category, history}) => (
     <GridListTile 
         key={`${title}-${id}`}
         className={classes.sm_tile}
@@ -37,6 +37,8 @@ const SimplePostTile = ({classes, title, id, voteScore, commentCount, category, 
                     <EditPostButtonContainer 
                         id={id} 
                         color='white'
+                        title={title}
+                        body={body}
                     />
                 </Fragment>
             }
@@ -55,12 +57,22 @@ const SimplePostTile = ({classes, title, id, voteScore, commentCount, category, 
             }}
             actionIcon={
                 <Fragment>
-                    <VoteOnPostButtonContainer voteType='like' postId={id} category={category}/>
-                    <VoteOnPostButtonContainer voteType='unlike' postId={id} category={category}/>
+                    <VoteOnPostButtonContainer 
+                        voteType='like' 
+                        postId={id} 
+                        category={category}
+                    />
+                    <VoteOnPostButtonContainer 
+                        voteType='unlike' 
+                        postId={id} 
+                        category={category}
+                    />
                     <AddCommentFormButtonContainer 
                         iconName='add_comment' 
                         isFab={false}
                         color='white'
+                        postId={id}
+                        category={category}
                     />
                 </Fragment>
             }
