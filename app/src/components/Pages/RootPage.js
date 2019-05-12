@@ -24,7 +24,7 @@ const RootPage = ({categories, posts, postsOrder}) => (
                     <ItemsList 
                         data={
                             postsOrder
-                                .filter(post => !post.deleted && post.category === category.path)
+                                .filter(post => posts[post.id] && !posts[post.id].deleted && post.category === category.path)
                                 .map(post => posts[post.id])
                         }
                     />

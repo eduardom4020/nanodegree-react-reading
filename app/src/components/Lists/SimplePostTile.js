@@ -11,7 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles/ItemsListStyles';
 
 import AddCommentFormButtonContainer from '../Containers/AddCommentFormButtonContainer';
+
 import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
+import DeletePostButtonContainer from '../Containers/DeletePostButtonContainer';
 
 import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 
@@ -33,14 +35,19 @@ const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, cate
                 title: classes.title,
             }}
             actionIcon={
-                <Fragment>
+                <div className={classes.inline} >
                     <EditPostButtonContainer 
                         id={id} 
                         color='white'
                         title={title}
                         body={body}
                     />
-                </Fragment>
+                    <DeletePostButtonContainer
+                        id={id} 
+                        color='white'
+                        category={category}
+                    />
+                </div>
             }
         />
         <GridListTileBar

@@ -31,6 +31,7 @@ class BaseFormDialog extends Component {
             editComment, 
             orderPosts, 
             editPost,
+            deletePost,
             type, 
             id,
             handleClose,
@@ -45,24 +46,44 @@ class BaseFormDialog extends Component {
             category 
         } = this.state;
 
-        if(type === 'addPost') {
-            addPost({author, body, title, category });
-            orderPosts([category]);
-        } else if(type === 'addComment') {
-            addComment({author, comment, parentId: postId});
-            if(category) {
+        //TODO start a saga here
+        switch(type) {
+            case 'addPost':
+                addPost({author, body, title, category });
                 orderPosts([category]);
-            }
-        } else if(type === 'editComment') {
-            const newComment = comment;
-            editComment({id, newComment});
-        } else if(type === 'editPost') {
-            const newBody = body;
-            const newTitle = title;
-            editPost({id, newTitle, newBody});
+                break;
+            case 'addComment':
+                addComment({author, comment, parentId: postId});
+                if(category) {
+                    orderPosts([category]);
+                }
+                break;
+            case 'editComment':
+                editComment({id, newComment: comment});
+                break;
+            case 'editPost':
+                editPost({id, newTitle: title, newBody: body});
+                break;
+            case 'deletePost':
+                deletePost({id});
+                if(category) {
+                    orderPosts([category]);
+                }
+                break;
+            default:
+                alert('No Action Was Executed!');
+                break;
         }
 
         handleClose();
+
+        this.setState({
+            author: '',
+            comment: '',
+            body: '', 
+            title: '', 
+            category: ''
+        })
     }
 
     handleChange = field => event => {

@@ -57,7 +57,12 @@ const styles = theme => (
             '&:hover': {
                 cursor: 'arrow'
             }
-        }
+        },
+        inline: {
+            display: 'inline-flex',
+            alignItems: 'center',
+            width: '100%'
+        },
     }
 );
 

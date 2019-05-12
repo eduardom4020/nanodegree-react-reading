@@ -21,11 +21,19 @@ export const setPosts = (POSTS=[]) => {
     try {
         const preTreatedPosts = POSTS.reduce((acc, curr) => ([...acc, ...curr]));
         const treatedPosts = preTreatedPosts.map(post => ({[post.id]: {...post}}));
-        const posts = treatedPosts.reduce((acc, curr) => ({...acc, ...curr}));
         
-        return {
-            type: SET_POSTS,
-            posts
+        if(treatedPosts.length > 0) {
+            const posts = treatedPosts.reduce((acc, curr) => ({...acc, ...curr}));
+            
+            return {
+                type: SET_POSTS,
+                posts
+            };
+        } else {
+            return {
+                type: SET_POSTS,
+                posts: {}
+            };
         }
     } catch(err) {
         console.error('On setting posts: ', err);

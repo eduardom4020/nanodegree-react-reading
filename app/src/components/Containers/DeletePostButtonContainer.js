@@ -2,12 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { deleteComment } from '../../actions/comment-actions';
+import { deletePost } from '../../actions/post-actions';
 
-import DeleteButton from '../Buttons/DeleteButton';
+import FormButton from '../Buttons/FormButton';
 
 const DeletePostButtonContainer = props => (
-    <DeleteButton {...props} />
+    <FormButton 
+        type='deletePost'
+        iconName='delete' 
+        isFab={false}
+        textTitle='Are you sure that you want to delete this post?'
+        {...props}  
+    />
 );
 
 const mapStateToProps = () => ({});
@@ -15,7 +21,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => (
     bindActionCreators(
         {
-            deleteComment
+            deletePost
         }, 
         dispatch
     )

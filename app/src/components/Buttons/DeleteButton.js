@@ -13,11 +13,12 @@ class DeleteButton extends Component {
     }
 
     render() {
+        const {color} = this.props;
         return (
             <IconButton
                 onClick={this.handleClick}
             >
-                <Icon>
+                <Icon style={{color: color || '#00000060'}}>
                     delete
                 </Icon>
             </IconButton>

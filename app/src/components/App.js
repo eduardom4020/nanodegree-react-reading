@@ -34,12 +34,18 @@ class App extends Component {
         const { setCategories, setPosts } = this.props;
 
         const { categories } = await Promise.resolve(getAllCategories());
-        const posts = await Promise.all(categories.map(category => (
-            getPostsByCatagory({category: category.path})
-        )));
+        
+        if(categories && categories.length > 0) {
+            const posts = await Promise.all(categories.map(category => (
+                getPostsByCatagory({category: category.path})
+            )));
 
-        setCategories(categories);
-        setPosts(posts);
+            setCategories(categories);
+            console.log(posts)
+            if(posts && posts.length > 0) {
+                setPosts(posts);
+            }
+        }
 
         this.setState({
             firstLoad: false

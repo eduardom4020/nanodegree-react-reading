@@ -41,7 +41,13 @@ const PostReducer = (state = initialState, action) => {
             return {...state, [post.id]: post}
         case DELETE_POST:
             // const { comment } = action;
-            return state.map(post => post.id === post.id ? {...post, deleted: true} : post);
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    deleted: true
+                }
+            };
         case EDIT_POST:
             const { id, body, title } = action;
             return {

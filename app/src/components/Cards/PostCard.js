@@ -23,6 +23,7 @@ import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 import InitialsAvatar from '../Avatars/InitialsAvatar';
 
 import EditPostButtonContainer from '../Containers/EditPostButtonContainer';
+import DeletePostButtonContainer from '../Containers/DeletePostButtonContainer';
 
 class PostCard extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class PostCard extends Component {
 
     render() {
         const { classes, post } = this.props;
-        const { title, author, timestamp, body } = post;
+        const { title, author, timestamp, body, category, id } = post;
         const date = new Date(timestamp);
         const img = IMG_PLACEHOLDER;
         
@@ -45,11 +46,17 @@ class PostCard extends Component {
                         />
                     }
                     action={
-                        <EditPostButtonContainer 
-                            id={post.id}
-                            title={title}
-                            body={body}
-                        />
+                        <div className={classes.inline} >
+                            <EditPostButtonContainer 
+                                id={id}
+                                title={title}
+                                body={body}
+                            />
+                            <DeletePostButtonContainer
+                                id={id}
+                                category={category}
+                            />
+                        </div>
                     }
                     title={title}
                     subheader={`${date.toDateString()} ${date.toTimeString()}`}
