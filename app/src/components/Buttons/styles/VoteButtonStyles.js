@@ -1,6 +1,15 @@
 const styles = theme => {
-    const voteIconBase = {
+    const voteIconBaseLight = {
         color: 'white',
+        fontSize: '.8em !important',
+        transition: theme.transitions.create(
+            ['color'],
+            { duration: theme.transitions.duration.complex }
+        )
+    };
+
+    const voteIconBaseDark = {
+        color: '#00000060',
         fontSize: '.8em !important',
         transition: theme.transitions.create(
             ['color'],
@@ -14,14 +23,26 @@ const styles = theme => {
             verticalAlign: 'center',
             alignSelf: 'center'
         },
-        like: {
-            ...voteIconBase,
+        likeLight: {
+            ...voteIconBaseLight,
             '&:hover': {
                 color: '#7cffa3'
             }
         },
-        unlike: {
-            ...voteIconBase,
+        unlikeLight: {
+            ...voteIconBaseLight,
+            '&:hover': {
+                color: '#ff4f4f'
+            }
+        },
+        likeDark: {
+            ...voteIconBaseDark,
+            '&:hover': {
+                color: '#7cffa3'
+            }
+        },
+        unlikeDark: {
+            ...voteIconBaseDark,
             '&:hover': {
                 color: '#ff4f4f'
             }

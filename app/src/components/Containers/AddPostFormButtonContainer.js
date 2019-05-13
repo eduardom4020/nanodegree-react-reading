@@ -10,7 +10,7 @@ const AddPostFormButtonContainer = props => (
     <FormButton {...props} type={'addPost'} />
 );
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({categories}) => ({categories});
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators(

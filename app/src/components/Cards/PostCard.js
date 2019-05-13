@@ -32,7 +32,7 @@ class PostCard extends Component {
 
     render() {
         const { classes, post } = this.props;
-        const { title, author, timestamp, body, category, id } = post;
+        const { title, author, timestamp, body, category, id, voteScore, commentCount } = post;
         const date = new Date(timestamp);
         const img = IMG_PLACEHOLDER;
         
@@ -94,8 +94,28 @@ class PostCard extends Component {
                     }
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
-                    <VoteOnPostButtonContainer voteType='like' />
-                    <VoteOnPostButtonContainer voteType='unlike' />
+                    <div className={classes.actionsLeft} >
+                        <Fragment>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;{` — Score: ${voteScore}`}</span>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;{`Comments: ${commentCount}`}</span>
+                        </Fragment>
+                    </div>
+                    <div className={classes.actionsRight} >
+                        <VoteOnPostButtonContainer 
+                            voteType='like' 
+                            style='Dark'
+                            postId={id} 
+                            category={category}
+                        />
+                    </div>
+                    <div className={classes.actionsRight} >
+                        <VoteOnPostButtonContainer 
+                            voteType='unlike' 
+                            style='Dark'
+                            postId={id} 
+                            category={category}
+                        />
+                    </div>
                 {/* <IconButton aria-label="Add to favorites">
                     <FavoriteIcon />
                 </IconButton>

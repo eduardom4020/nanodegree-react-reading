@@ -15,7 +15,7 @@ const EditPostButtonContainer = props => (
     />
 );
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({categories}) => ({categories});
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators(

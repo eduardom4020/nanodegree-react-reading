@@ -32,6 +32,16 @@ const styles = theme => ({
     inline: {
         display: 'inline-flex',
         alignItems: 'baseline'
+    },
+    actions: {
+        width: '100%'
+    },
+    actionsLeft: {
+        flex: 1
+    },
+    actionsRight: {
+        flex: 0,
+        margin: '0 1vw 0 1vw'
     }
 });
 

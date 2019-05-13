@@ -6,9 +6,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class BaseFormDialog extends Component {
     constructor(props) {
@@ -32,6 +36,7 @@ class BaseFormDialog extends Component {
             orderPosts, 
             editPost,
             deletePost,
+            deleteComment,
             type, 
             id,
             handleClose,
@@ -66,6 +71,12 @@ class BaseFormDialog extends Component {
                 break;
             case 'deletePost':
                 deletePost({id});
+                if(category) {
+                    orderPosts([category]);
+                }
+                break;
+            case 'deleteComment':
+                deleteComment({id});
                 if(category) {
                     orderPosts([category]);
                 }
@@ -122,7 +133,7 @@ class BaseFormDialog extends Component {
     }
 
     render () {
-        const { classes, type, textTitle, open, handleClose } = this.props;
+        const { classes, type, textTitle, open, handleClose, categories } = this.props;
         const { author, comment, title, category, body } = this.state;
 
         return (
@@ -131,7 +142,7 @@ class BaseFormDialog extends Component {
                 onClose={handleClose}
                 aria-labelledby="form-button-dialog"
                 fullWidth
-                maxWidth='lg'
+                maxWidth='md'
                 scroll='body'
             >
                     <DialogTitle id="form-dialog-title">
@@ -187,17 +198,37 @@ class BaseFormDialog extends Component {
                                     <br />
                                     {
                                         (type === 'addPost') && (
-                                            <TextField
-                                                // id="outlined-multiline-flexible"
-                                                label='Category'
-                                                value={category}
-                                                onChange={this.handleChange('category')}
-                                                // className={classes.textField}
-                                                margin="normal"
-                                                // helperText="hello"
-                                                variant="outlined"
+                                            <FormControl 
+                                                variant='outlined' 
+                                                className={classes.formControl}
                                                 fullWidth
-                                            />
+                                            >
+                                                <InputLabel
+                                                    ref={ref => {
+                                                        this.InputLabelRef = ref;
+                                                    }}
+                                                    htmlFor='outlined-category-simple'
+                                                >
+                                                    Category
+                                                </InputLabel>
+                                                <Select
+                                                    value={category}
+                                                    onChange={this.handleChange('category')}
+                                                    input={
+                                                        <OutlinedInput
+                                                            labelWidth='100%'
+                                                            name='Category'
+                                                            id='outlined-category-simple'
+                                                        />
+                                                    }
+                                                >
+                                                    {
+                                                        categories.map(itemCategory => (
+                                                            <MenuItem value={itemCategory.path}>{itemCategory.name}</MenuItem>
+                                                        ))
+                                                    }
+                                                </Select>
+                                            </FormControl>
                                         )
                                     }
                                     <br />

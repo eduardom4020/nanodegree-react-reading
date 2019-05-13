@@ -50,7 +50,7 @@ class VoteButton extends Component {
     }
 
     render() {
-        const { classes, voteType } = this.props;
+        const { classes, voteType, style='Light' } = this.props;
         const { clicked } = this.state;
 
         return (
@@ -60,7 +60,8 @@ class VoteButton extends Component {
                 disabled={clicked}    
             >
                 <Icon 
-                    className={`${classes[voteType]} ${clicked ? classes[`${voteType}Clicked`] : ''}`}
+                    // style={{color: color || '#00000060'}}
+                    className={`${classes[`${voteType}${style}`]} ${clicked ? classes[`${voteType}Clicked`] : ''}`}
                 >
                     {ICONS[voteType]}
                 </Icon>
