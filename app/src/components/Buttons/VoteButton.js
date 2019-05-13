@@ -39,7 +39,11 @@ class VoteButton extends Component {
             
             try {
                 vote(postId, voteType);
-                executeOrdering();
+
+                if(executeOrdering) {
+                    executeOrdering();
+                }
+
                 this.setState({
                     ordering: true
                 });

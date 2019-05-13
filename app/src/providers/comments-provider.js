@@ -82,3 +82,25 @@ export const editCommentInServer = async ({ comment }, origin=ORIGIN) => {
         return null;
     }
 }
+
+export const vote = async ({ id, voteType }, origin=ORIGIN) => {
+    try {
+        const {data} = await axios.post(
+            `${origin}/comments/${id}`,
+            {
+                option: (voteType === 'like' && 'upVote') ||
+                    (voteType === 'unlike' && 'downVote')
+            },
+            {
+                headers: {
+                    'Authorization': 'random-token'
+                }
+            }
+        );
+
+        return data;
+    } catch(e) {
+        console.log('ERROR: ', e);
+        return null;
+    }
+}

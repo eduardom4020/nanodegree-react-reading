@@ -2,7 +2,8 @@ import {
     SET_COMMENTS,
     ADD_COMMENT,
     DELETE_COMMENT,
-    EDIT_COMMENT
+    EDIT_COMMENT,
+    VOTE_ON_COMMENT
 } from '../actions/types';
 
 const initialState = {
@@ -38,15 +39,15 @@ const CommentsReducer = (state = initialState, action) => {
                     // timestamp
                 }
             };
-        // case VOTE:
-        //     const { postId, score } = action;
-        //     return {
-        //         ...state, 
-        //         [postId]: {
-        //             ...state[postId],
-        //             voteScore: state[postId].voteScore + score
-        //         }
-        //     }
+        case VOTE_ON_COMMENT:
+            const { commentId, score } = action;
+            return {
+                ...state, 
+                [commentId]: {
+                    ...state[commentId],
+                    voteScore: state[commentId].voteScore + score
+                }
+            };
         default:
             return state;
     }

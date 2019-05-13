@@ -4,6 +4,7 @@ import {
 } from './types';
 
 import { vote as sendPostVoteToServer } from '../providers/posts-provider';
+import { vote as sendCommentVoteToServer } from '../providers/comments-provider';
 
 export const voteOnPost = (postId, voteType, voteClass='normal') => {
     try {
@@ -26,7 +27,9 @@ export const voteOnPost = (postId, voteType, voteClass='normal') => {
     }
 }
 
-export const voteOnComment = (commentId, voteType, voteClass='normal') => {
+export const voteOnComment = (postId, voteType, voteClass='normal') => {
+    const commentId = postId;
+    
     try {
         const score = (voteType === 'like' ? 1 : -1) * (
             voteClass === 'normal' ? 
@@ -35,6 +38,8 @@ export const voteOnComment = (commentId, voteType, voteClass='normal') => {
                 0
         );
 
+        sendCommentVoteToServer({id: commentId, voteType})
+            console.log('Before voting on comment')
         return {
             type: VOTE_ON_COMMENT,
             commentId,

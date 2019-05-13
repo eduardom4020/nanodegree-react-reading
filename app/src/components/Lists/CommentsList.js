@@ -13,6 +13,8 @@ import InitialsAvatar from '../Avatars/InitialsAvatar';
 import DeleteCommentButtonContainer from '../Containers/DeleteCommentButtonContainer';
 import EditCommentButtonContainer from '../Containers/EditCommentButtonContainer';
 
+import VoteOnCommentButtonContainer from '../Buttons/VoteOnCommentButtonContainer';
+
 const CommentsList = ({classes, comments=[]}) => (
     <List className={classes.root}>
         {   
@@ -51,6 +53,16 @@ const CommentsList = ({classes, comments=[]}) => (
                             >
                                 {new Date(comment.timestamp).toDateString()}
                             </Typography>
+                            <VoteOnCommentButtonContainer 
+                                    voteType='like' 
+                                    style='Dark'
+                                    postId={comment.id}
+                                />
+                            <VoteOnCommentButtonContainer 
+                                voteType='unlike' 
+                                style='Dark'
+                                postId={comment.id}
+                            />
                         </div>
                     }
                     secondary={
