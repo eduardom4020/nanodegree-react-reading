@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,11 +8,17 @@ import styles from './styles/CategoryHeaderStyles';
 import OrderButton from '../Buttons/OrderButtonContainer';
 
 
-const CategoryHeader = ({classes, category}) => (
+const CategoryHeader = ({classes, category, hideCategoryName}) => (
     <div className={classes.root} >
-        <Typography variant='h4'>
-            {category.name}
-        </Typography>
+        {
+            !hideCategoryName && (
+                <Link to={`${category.path}`} >
+                    <Typography variant='h4'>
+                        {category.name}
+                    </Typography>
+                </Link>
+            )
+        }
         <div className={classes.smVerticalSpacer} />
         <Typography 
             variant='h6' 

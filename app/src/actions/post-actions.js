@@ -105,10 +105,14 @@ export const addPost = ({author, body, title, category}) => {
     }
 };
 
-export const deletePost = ({id}) => {
+export const deletePost = ({id, history}) => {
     try {
         setPostAsDeleted({id});
-        
+
+        if(history) {
+            redirectTo('/', history);
+        }
+
         return {
             type: DELETE_POST,
             id

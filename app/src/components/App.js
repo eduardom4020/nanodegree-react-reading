@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import { RootPage, PostPage, CategoryPage } from './Pages';
 
 import {
@@ -71,7 +71,7 @@ class App extends Component {
 
         return (
             <Router>
-                <div>
+                <Switch>
                     <Route path='/' exact component={RootPage} />
                     {
                         categories &&
@@ -95,7 +95,8 @@ class App extends Component {
                             />
                         ))
                     }
-                </div>
+                    <Route path="*" render={() => <span>Error: 404 - Not Found!</span>} />
+                </Switch>
             </Router>
         );
     }

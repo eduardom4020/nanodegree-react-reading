@@ -6,7 +6,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import img_not_available from '../../images/placeholder.png';
+import IMG_PLACEHOLDER from '../../images/placeholder.png';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles/ItemsListStyles';
 
@@ -17,13 +17,24 @@ import DeletePostButtonContainer from '../Containers/DeletePostButtonContainer';
 
 import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 
+import {TIERS} from '../../images';
+
 const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, category, history}) => (
     <GridListTile 
         key={`${title}-${id}`}
         className={classes.sm_tile}
     >  
         <img 
-            src={img_not_available} 
+            src={
+                (voteScore < 3 && TIERS[0]) ||
+                (voteScore < 6 && TIERS[1]) ||
+                (voteScore < 12 && TIERS[2]) ||
+                (voteScore < 36 && TIERS[3]) ||
+                (voteScore < 64 && TIERS[4]) ||
+                (voteScore < 80 && TIERS[5]) ||
+                (voteScore >= 80 && TIERS[6]) ||
+                IMG_PLACEHOLDER
+            } 
             alt={title} 
             className={classes.tile_img}
             onClick={clickRedirectTo(`${category}/${id}`, history)}

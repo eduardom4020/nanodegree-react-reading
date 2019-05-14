@@ -4,10 +4,16 @@ import { bindActionCreators } from 'redux';
 
 import { deleteComment } from '../../actions/comment-actions';
 
-import DeleteButton from '../Buttons/DeleteButton';
+import FormButton from '../Buttons/FormButton';
 
 const DeleteCommentButtonContainer = props => (
-    <DeleteButton {...props} />
+    <FormButton 
+        type='deleteComment'
+        iconName='delete' 
+        isFab={false}
+        textTitle='Are you sure that you want to delete this comment?'
+        {...props}  
+    />
 );
 
 const mapStateToProps = () => ({});

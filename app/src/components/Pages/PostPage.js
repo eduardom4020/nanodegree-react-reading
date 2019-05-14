@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 
 import PostCardContainer from '../Cards/PostCardContainer';
 import CommentsListContainer from '../Containers/CommentsListContainer';
@@ -10,12 +11,21 @@ import AddCommentFormButtonContainer from '../Containers/AddCommentFormButtonCon
 
 const PostPage = ({classes}) => (
     <Fragment>
-        <Typography variant='h2'>
-            Post Page
-        </Typography>
-        <PostCardContainer />
-        <CommentsListContainer />
-        <AddCommentFormButtonContainer textTitle='Add a comment to this post:' />
+        <AppBar position='fixed'>
+            <Toolbar variant="dense">
+            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon />
+            </IconButton> */}
+            <Typography variant="h6" color="inherit">
+                Post Details
+            </Typography>
+            </Toolbar>
+        </AppBar>
+        <div style={{marginTop: '5%'}} >
+            <PostCardContainer />
+            <CommentsListContainer />
+            <AddCommentFormButtonContainer textTitle='Add a comment to this post:' />
+        </div>
     </Fragment>
 );
 

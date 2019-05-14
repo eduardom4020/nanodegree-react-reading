@@ -6,7 +6,8 @@ const styles = theme => ({
     media: {
         height: 0,
         maxHeight: '10%',
-        paddingTop: '15%', // 16:9
+        paddingTop: '25%', // 16:9
+        backgroundPositionY: 'bottom'
     },
     actions: {
         display: 'flex',

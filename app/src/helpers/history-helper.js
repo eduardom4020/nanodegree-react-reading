@@ -1,9 +1,9 @@
-export const redirectTo = (path, history) => event => (
+export const redirectTo = (path, history) => (
     history.push(path)
 );
 
 export const clickRedirectTo = (path, history) => event => (
-    redirectTo(path, history)()
+    redirectTo(path, history)
 );
 
 export const undo = (history) => (

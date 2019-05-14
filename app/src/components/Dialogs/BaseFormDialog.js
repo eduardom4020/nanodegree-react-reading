@@ -40,7 +40,8 @@ class BaseFormDialog extends Component {
             type, 
             id,
             handleClose,
-            postId
+            postId,
+            history
         } = this.props;
 
         const { 
@@ -70,7 +71,7 @@ class BaseFormDialog extends Component {
                 editPost({id, newTitle: title, newBody: body});
                 break;
             case 'deletePost':
-                deletePost({id});
+                deletePost({id, history});
                 if(category) {
                     orderPosts([category]);
                 }
