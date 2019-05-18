@@ -46,7 +46,6 @@ class FormButton extends Component {
                                 aria-label={type} 
                                 className={classes.fab}
                                 onClick={this.handleOpen}
-                                // fullScreen={true}
                             >
                                 <Icon>
                                     {iconName || 'add'}

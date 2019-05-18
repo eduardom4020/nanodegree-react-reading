@@ -21,8 +21,9 @@ const CommentsList = ({classes, comments=[]}) => (
             comments.filter(comment => comment.deleted === false)
                 .map(comment => (
                 <ListItem 
-                    alignItems="flex-start"
+                    alignItems='flex-start'
                     className={classes.item}
+                    key={`comment-${comment.id}`}
                 >
                     <ListItemAvatar>
                         <InitialsAvatar 
@@ -41,14 +42,14 @@ const CommentsList = ({classes, comments=[]}) => (
                             </Typography>
                             <div className={classes.simpleSpacer} />
                             <Typography
-                                component='p' 
+                                variant='body1'  
                                 color="textSecondary"
                             >
                                 wrote in
                             </Typography>
                             <div className={classes.simpleSpacer} />
                             <Typography
-                                component='p' 
+                                variant='body1' 
                                 color="textPrimary"
                             >
                                 {new Date(comment.timestamp).toDateString()}
@@ -69,8 +70,8 @@ const CommentsList = ({classes, comments=[]}) => (
                         <div className={classes.inline}>
                             <Typography 
                                 className={classes.body}
-                                component='p' 
-                                color="textPrimary"
+                                variant='body1' 
+                                color='textPrimary'
                             >
                                 {comment.body}
                             </Typography>
@@ -78,8 +79,8 @@ const CommentsList = ({classes, comments=[]}) => (
                             <div className={classes.counter} >
                                 <Typography
                                     className={classes.body}
-                                    component='p' 
-                                    color="textSecondary"
+                                    variant='body2' 
+                                    color='textSecondary'
                                 >
                                     {` — Score: ${comment.voteScore}`}
                                 </Typography>

@@ -61,7 +61,6 @@ export const editPostInServer = async ({ post }, origin=ORIGIN) => {
         const {data} = await axios.put(
             `${origin}/posts/${post.id}`,
             {
-                // timestamp: post.timestamp,
                 body: post.body,
                 title: post.title
             },

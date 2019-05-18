@@ -4,8 +4,7 @@ import {clickRedirectTo} from '../../helpers/history-helper';
 
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
 import IMG_PLACEHOLDER from '../../images/placeholder.png';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles/ItemsListStyles';
@@ -40,7 +39,16 @@ const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, cate
             onClick={clickRedirectTo(`${category}/${id}`, history)}
         />
         <GridListTileBar
-            title={title}
+            title={
+                <Tooltip title={
+                    <div>
+                        <h2>{title}</h2>
+                        <p>{body}</p>
+                    </div>
+                } interactive>
+                    <span>{title}</span>
+                </Tooltip>
+            }
             classes={{
                 root: classes.titleBar,
                 title: classes.title,

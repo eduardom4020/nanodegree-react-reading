@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import { RootPage, PostPage, CategoryPage } from './Pages';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { RootPage, PostPage, CategoryPage, NotFoundPage } from './Pages';
 
 import {
     getAllCategories
@@ -20,6 +20,8 @@ import {
     setPosts,
     orderPosts
 } from '../actions/post-actions';
+
+import Icon from '@material-ui/core/Icon';
 
 class App extends Component {
     constructor(props) {
@@ -41,7 +43,7 @@ class App extends Component {
             )));
 
             setCategories(categories);
-            console.log(posts)
+
             if(posts && posts.length > 0) {
                 setPosts(posts);
             }
@@ -68,36 +70,45 @@ class App extends Component {
 
     render() {
         const { categories, posts } = this.props;
+        const { firstLoad } = this.state;
 
         return (
-            <Router>
-                <Switch>
-                    <Route path='/' exact component={RootPage} />
-                    {
-                        categories &&
-                        categories.map((category, index) => (
-                            <Route
-                                key={`route-${category.path}-${index}`} 
-                                exact
-                                path={`/${category.path}`}
-                                component={CategoryPage}
-                            />
-                        ))
-                    }
-                    {
-                        posts &&
-                        Object.values(posts).map((post, index) => (
-                            <Route
-                                key={`post-${post.id}-${index}`} 
-                                exact
-                                path={`/${post.category}/${post.id}`}
-                                component={PostPage}
-                            />
-                        ))
-                    }
-                    <Route path="*" render={() => <span>Error: 404 - Not Found!</span>} />
-                </Switch>
-            </Router>
+            firstLoad ? (
+                <Router>
+                    <Switch>
+                        <Route path='/' exact component={RootPage} />
+                        {
+                            categories &&
+                            categories.map((category, index) => (
+                                <Route
+                                    key={`route-${category.path}-${index}`} 
+                                    exact
+                                    path={`/${category.path}`}
+                                    component={CategoryPage}
+                                />
+                            ))
+                        }
+                        {
+                            posts &&
+                            Object.values(posts).filter(post => !post.deleted)
+                                .map((post, index) => (
+                                    <Route
+                                        key={`post-${post.id}-${index}`} 
+                                        exact
+                                        path={`/${post.category}/${post.id}`}
+                                        component={PostPage}
+                                    />
+                                )
+                            )
+                        }
+                        <Route path="*" component={NotFoundPage} />
+                    </Switch>
+                </Router>
+            ) :
+            <div style={{width: '100%', textAlign: 'center'}} >
+                <Icon style={{fontSize: '20em', color: '#dbdbdb'}}>hourglass_empty</Icon>
+                <p>Loading...</p>
+            </div>
         );
     }
 }

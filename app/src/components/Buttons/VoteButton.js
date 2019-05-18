@@ -63,8 +63,7 @@ class VoteButton extends Component {
                 onClick={this.click}
                 disabled={clicked}    
             >
-                <Icon 
-                    // style={{color: color || '#00000060'}}
+                <Icon
                     className={`${classes[`${voteType}${style}`]} ${clicked ? classes[`${voteType}Clicked`] : ''}`}
                 >
                     {ICONS[voteType]}

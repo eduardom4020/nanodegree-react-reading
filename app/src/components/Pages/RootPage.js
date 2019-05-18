@@ -15,9 +15,6 @@ const RootPage = ({categories, posts, postsOrder}) => (
     <Fragment>
         <AppBar position='fixed'>
             <Toolbar variant="dense">
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-            </IconButton> */}
             <Typography variant="h6" color="inherit">
                 Main
             </Typography>
@@ -38,7 +35,7 @@ const RootPage = ({categories, posts, postsOrder}) => (
                                     .map(post => posts[post.id])
                             }
                         />
-                        <AddPostFormButtonContainer textTitle='Are you thinking in...' />
+                        <AddPostFormButtonContainer textTitle="Let's write a new post!" />
                     </Fragment>
                 ))
             }

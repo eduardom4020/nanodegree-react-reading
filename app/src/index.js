@@ -5,16 +5,14 @@ import { Provider } from 'react-redux';
 import { MainStore } from './store/base-stores';
 import * as serviceWorker from './serviceWorker';
 
-// const store = createStore();
-
 ReactDOM.render(
     <Provider store={MainStore} >
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link 
+            rel="stylesheet" 
+            href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+        />
         <App />
     </Provider>
 , document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

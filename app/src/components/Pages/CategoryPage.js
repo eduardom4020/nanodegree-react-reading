@@ -9,6 +9,8 @@ import ItemsList from '../Lists/ItemsList';
 
 import CategoryHeader from '../Headers/CategoryHeader';
 
+import AddPostFormButtonContainer from '../Containers/AddPostFormButtonContainer';
+
 const getCategoryFromPath = () => {
     const tokens = window.location.pathname.split('/');
     return tokens[tokens.length - 1];
@@ -18,12 +20,9 @@ const CategoryPage = ({posts, categories, postsOrder}) => (
     <Fragment>
         <AppBar position='fixed'>
             <Toolbar variant="dense">
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-            </IconButton> */}
-            <Typography variant="h6" color="inherit">
-                Category: {categories.filter(category => category.path === getCategoryFromPath())[0].name}
-            </Typography>
+                <Typography variant="h6" color="inherit">
+                    Category: {categories.filter(category => category.path === getCategoryFromPath())[0].name}
+                </Typography>
             </Toolbar>
         </AppBar>
         <div style={{marginTop: '5%'}} >
@@ -40,6 +39,10 @@ const CategoryPage = ({posts, categories, postsOrder}) => (
                 gridList='wrappedList'
             />
         </div>
+        <AddPostFormButtonContainer 
+            textTitle="Let's write a new post!" 
+            fixedCategory={categories.filter(category => category.path === getCategoryFromPath())[0].path} 
+        />
     </Fragment>
 );
 

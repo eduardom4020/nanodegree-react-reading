@@ -38,8 +38,8 @@ export const voteOnComment = (postId, voteType, voteClass='normal') => {
                 0
         );
 
-        sendCommentVoteToServer({id: commentId, voteType})
-            console.log('Before voting on comment')
+        sendCommentVoteToServer({id: commentId, voteType});
+
         return {
             type: VOTE_ON_COMMENT,
             commentId,

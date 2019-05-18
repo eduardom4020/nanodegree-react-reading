@@ -40,7 +40,6 @@ const PostReducer = (state = initialState, action) => {
             const { post } = action;
             return {...state, [post.id]: post}
         case DELETE_POST:
-            // const { comment } = action;
             return {
                 ...state,
                 [action.id]: {

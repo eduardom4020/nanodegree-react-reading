@@ -23,12 +23,11 @@ class BaseFormDialog extends Component {
             comment: '',
             body: '', 
             title: '', 
-            category: '' //change to dropdown
+            category: ''
         };
     }
 
     handleConfirm = () => {
-        //  triggers redux event
         const { 
             addComment, 
             addPost, 
@@ -41,7 +40,8 @@ class BaseFormDialog extends Component {
             id,
             handleClose,
             postId,
-            history
+            history,
+            fixedCategory
         } = this.props;
 
         const { 
@@ -52,11 +52,10 @@ class BaseFormDialog extends Component {
             category 
         } = this.state;
 
-        //TODO start a saga here
         switch(type) {
             case 'addPost':
-                addPost({author, body, title, category });
-                orderPosts([category]);
+                addPost({author, body, title, category: fixedCategory ? fixedCategory : category });
+                orderPosts([fixedCategory ? fixedCategory : category]);
                 break;
             case 'addComment':
                 addComment({author, comment, parentId: postId});
@@ -134,7 +133,7 @@ class BaseFormDialog extends Component {
     }
 
     render () {
-        const { classes, type, textTitle, open, handleClose, categories } = this.props;
+        const { classes, type, textTitle, open, handleClose, categories, fixedCategory } = this.props;
         const { author, comment, title, category, body } = this.state;
 
         return (
@@ -146,20 +145,19 @@ class BaseFormDialog extends Component {
                 maxWidth='md'
                 scroll='body'
             >
-                    <DialogTitle id="form-dialog-title">
+                    <DialogTitle 
+                        id='form-dialog-title'
+                    >
                         {textTitle}
                     </DialogTitle>
                     <DialogContent>
                         {
                             (type === 'addComment' || type === 'addPost') && (
                                 <TextField
-                                    // id="outlined-multiline-flexible"
                                     label='Your Name'
                                     value={author}
                                     onChange={this.handleChange('author')}
-                                    // className={classes.textField}
                                     margin="normal"
-                                    // helperText="hello"
                                     variant="outlined"
                                     fullWidth
                                 />
@@ -169,14 +167,11 @@ class BaseFormDialog extends Component {
                         {
                             (type === 'addComment' || type === 'editComment') && (
                                 <TextField
-                                    // id="outlined-multiline-flexible"
                                     label='Comment'
                                     multiline
                                     value={comment}
                                     onChange={this.handleChange('comment')}
-                                    // className={classes.textField}
                                     margin="normal"
-                                    // helperText="hello"
                                     variant="outlined"
                                     fullWidth
                                 />
@@ -186,13 +181,10 @@ class BaseFormDialog extends Component {
                             (type === 'addPost' || type === 'editPost') && (
                                 <Fragment>
                                     <TextField
-                                        // id="outlined-multiline-flexible"
                                         label='Title'
                                         value={title}
                                         onChange={this.handleChange('title')}
-                                        // className={classes.textField}
                                         margin="normal"
-                                        // helperText="hello"
                                         variant="outlined"
                                         fullWidth
                                     />
@@ -202,6 +194,7 @@ class BaseFormDialog extends Component {
                                             <FormControl 
                                                 variant='outlined' 
                                                 className={classes.formControl}
+                                                disabled={fixedCategory != null}
                                                 fullWidth
                                             >
                                                 <InputLabel
@@ -213,11 +206,11 @@ class BaseFormDialog extends Component {
                                                     Category
                                                 </InputLabel>
                                                 <Select
-                                                    value={category}
+                                                    value={fixedCategory ? fixedCategory : category}
                                                     onChange={this.handleChange('category')}
                                                     input={
                                                         <OutlinedInput
-                                                            labelWidth='100%'
+                                                            labelWidth={100}
                                                             name='Category'
                                                             id='outlined-category-simple'
                                                         />
@@ -225,7 +218,12 @@ class BaseFormDialog extends Component {
                                                 >
                                                     {
                                                         categories.map(itemCategory => (
-                                                            <MenuItem value={itemCategory.path}>{itemCategory.name}</MenuItem>
+                                                            <MenuItem 
+                                                                value={itemCategory.path}
+                                                                key={`dialog-category-field-${itemCategory.path}`}
+                                                            >
+                                                                {itemCategory.name}
+                                                            </MenuItem>
                                                         ))
                                                     }
                                                 </Select>
@@ -234,14 +232,11 @@ class BaseFormDialog extends Component {
                                     }
                                     <br />
                                     <TextField
-                                        // id="outlined-multiline-flexible"
                                         label='Discussion'
                                         multiline
                                         value={body}
                                         onChange={this.handleChange('body')}
-                                        // className={classes.textField}
                                         margin="normal"
-                                        // helperText="hello"
                                         variant="outlined"
                                         fullWidth
                                     />

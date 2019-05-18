@@ -1,12 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { orderPosts } from '../../actions/post-actions';
 import OrderButton from './OrderButton';
-
-import { withStyles } from '@material-ui/core/styles';
-import styles from './styles/OrderButtonStyles';
 
 const clickEvent = (category, orderPosts, orderBy, invert) => e => (
     category.orderBy !== `${orderBy}${invert ? '-inverse' : ''}` && 

@@ -41,7 +41,6 @@ export const setPosts = (POSTS=[]) => {
 };
 
 export const orderPosts = (categoriesPaths, orderBy='voteScore', invert=false) => {
-    // console.log('ON ORDERING POSTS', MainStore.getState())
     const targetsPosts = Object.values(MainStore.getState().posts);
     const POSTS = targetsPosts.filter(post => categoriesPaths.indexOf(post.category) >= 0);
 
@@ -54,8 +53,6 @@ export const orderPosts = (categoriesPaths, orderBy='voteScore', invert=false) =
             :
                 0
         )).map(post => ({id: post.id, category: post.category}));
-        
-        // const postsOrder = [...postsOrdered, ...otherCategoriesPosts]
 
         return {
             type: ORDER_POSTS,

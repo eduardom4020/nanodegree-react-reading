@@ -5,7 +5,6 @@ import Reducers from '../reducers';
 export const MainStore = createStore(
     Reducers,
     composeWithDevTools(
-        applyMiddleware(),
-        // other store enhancers if any
+        applyMiddleware()
     )
 );

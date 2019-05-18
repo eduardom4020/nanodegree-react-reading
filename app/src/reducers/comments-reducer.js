@@ -13,7 +13,7 @@ const initialState = {
         timestamp: 1468166872634,
         body: 'Hi there! I am a COMMENT.',
         author: 'thingtwo',
-        voteScore: 6,
+        voteScore: 1,
         deleted: false,
         parentDeleted: false
     }
@@ -27,16 +27,21 @@ const CommentsReducer = (state = initialState, action) => {
             const { comment } = action;
             return {...state, [comment.id]: comment}
         case DELETE_COMMENT:
-            // const { comment } = action;
-            return state.map(comment => action.id === comment.id ? {...comment, deleted: true} : comment);
+            const { comment: toDeleteComment } = action;
+            return {
+                ...state,
+                [toDeleteComment.id]: {
+                    ...toDeleteComment,
+                    deleted: true
+                }
+            };
         case EDIT_COMMENT:
             const { id, body, timestamp } = action.comment;
             return {
                 ...state, 
                 [id]: {
                     ...state[id], 
-                    body,
-                    // timestamp
+                    body
                 }
             };
         case VOTE_ON_COMMENT:

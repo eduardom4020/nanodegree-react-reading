@@ -13,12 +13,9 @@ const PostPage = ({classes}) => (
     <Fragment>
         <AppBar position='fixed'>
             <Toolbar variant="dense">
-            {/* <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                <MenuIcon />
-            </IconButton> */}
-            <Typography variant="h6" color="inherit">
-                Post Details
-            </Typography>
+                <Typography variant="h6" color="inherit">
+                    Post Details
+                </Typography>
             </Toolbar>
         </AppBar>
         <div style={{marginTop: '5%'}} >

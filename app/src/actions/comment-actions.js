@@ -5,10 +5,10 @@ import {
     EDIT_COMMENT
 } from './types';
 
+import { MainStore } from '../store/base-stores';
 import { getFromPath } from '../helpers/url-helpers';
 import { newUUIDv4 } from '../helpers/data-helpers';
 
-// import { MainStore } from '../store/base-stores';
 import { 
     sendCommentToServer, 
     setCommentAsDeleted,
@@ -67,7 +67,7 @@ export const deleteComment = ({id}) => {
 
         return {
             type: DELETE_COMMENT,
-            id
+            comment: MainStore.getState().comments[id]
         }
     } catch(err) {
         console.error('On delete comment: ', err);
@@ -82,7 +82,6 @@ export const editComment = ({id, newComment}) => {
 
         const comment = {
             id,
-            // timestamp: Date.now(),
             body: newComment
         }
 

@@ -76,7 +76,9 @@ class PostCard extends Component {
                     {
                         body.split('\n').map((token, index) => (
                             index === 0 ? (
-                                <Fragment>
+                                <Fragment
+                                    key={`paragraph-${index}`}
+                                >
                                     <div className={classes.inline}>
                                         <Icon
                                             className={classes.enterIcon}
