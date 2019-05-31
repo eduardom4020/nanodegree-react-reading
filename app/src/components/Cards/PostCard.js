@@ -98,6 +98,7 @@ class PostCard extends Component {
                                 </Typography>
                         ))
                     }
+                    <p style={{textAlign: 'right', color: '#3a3a3a', fontSize: '.9em'}}>{`Written by ${author}`}</p>
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
                     <div className={classes.actionsLeft} >

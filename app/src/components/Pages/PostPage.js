@@ -8,17 +8,12 @@ import PostCardContainer from '../Cards/PostCardContainer';
 import CommentsListContainer from '../Containers/CommentsListContainer';
 
 import AddCommentFormButtonContainer from '../Containers/AddCommentFormButtonContainer';
+import ToolBarContainter from '../Headers/ToolBarContainer';
 
 const PostPage = ({classes}) => (
     <Fragment>
-        <AppBar position='fixed'>
-            <Toolbar variant="dense">
-                <Typography variant="h6" color="inherit">
-                    Post Details
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        <div style={{marginTop: '5%'}} >
+        <ToolBarContainter pageTitle='Post Details' />
+        <div style={{marginTop: '10%'}} >
             <PostCardContainer />
             <CommentsListContainer />
             <AddCommentFormButtonContainer textTitle='Add a comment to this post:' />

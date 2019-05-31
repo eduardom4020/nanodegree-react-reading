@@ -10,6 +10,7 @@ import ItemsList from '../Lists/ItemsList';
 import CategoryHeader from '../Headers/CategoryHeader';
 
 import AddPostFormButtonContainer from '../Containers/AddPostFormButtonContainer';
+import ToolBarContainter from '../Headers/ToolBarContainer';
 
 const getCategoryFromPath = () => {
     const tokens = window.location.pathname.split('/');
@@ -18,14 +19,8 @@ const getCategoryFromPath = () => {
 
 const CategoryPage = ({posts, categories, postsOrder}) => (
     <Fragment>
-        <AppBar position='fixed'>
-            <Toolbar variant="dense">
-                <Typography variant="h6" color="inherit">
-                    Category: {categories.filter(category => category.path === getCategoryFromPath())[0].name}
-                </Typography>
-            </Toolbar>
-        </AppBar>
-        <div style={{marginTop: '5%'}} >
+        <ToolBarContainter pageTitle='Category' />
+        <div style={{marginTop: '10%'}} >
             <CategoryHeader 
                 category={categories.filter(category => category.path === getCategoryFromPath())[0]} 
                 hideCategoryName={true}

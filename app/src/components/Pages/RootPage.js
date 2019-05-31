@@ -2,25 +2,17 @@ import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import ItemsList from '../Lists/ItemsList';
 
 import CategoryHeader from '../Headers/CategoryHeader';
 
 import AddPostFormButtonContainer from '../Containers/AddPostFormButtonContainer';
+import ToolBarContainter from '../Headers/ToolBarContainer';
 
 const RootPage = ({categories, posts, postsOrder}) => (
     <Fragment>
-        <AppBar position='fixed'>
-            <Toolbar variant="dense">
-            <Typography variant="h6" color="inherit">
-                Main
-            </Typography>
-            </Toolbar>
-        </AppBar>
-        <div style={{marginTop: '5%'}} >
+        <ToolBarContainter pageTitle='Main' />
+        <div style={{marginTop: '10%'}} >
             {
                 categories &&
                 categories.map((category, index) => (

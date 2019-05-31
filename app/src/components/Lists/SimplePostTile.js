@@ -18,7 +18,7 @@ import VoteOnPostButtonContainer from '../Buttons/VoteOnPostButtonContainer';
 
 import {TIERS} from '../../images';
 
-const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, category, history}) => (
+const SimplePostTile = ({classes, author, title, body, id, voteScore, commentCount, category, history}) => (
     <GridListTile 
         key={`${title}-${id}`}
         className={classes.sm_tile}
@@ -40,14 +40,18 @@ const SimplePostTile = ({classes, title, body, id, voteScore, commentCount, cate
         />
         <GridListTileBar
             title={
-                <Tooltip title={
-                    <div>
-                        <h2>{title}</h2>
-                        <p>{body}</p>
-                    </div>
-                } interactive>
-                    <span>{title}</span>
-                </Tooltip>
+                <Fragment>
+                    <Tooltip title={
+                        <div>
+                            <h2>{title}</h2>
+                            <p>{body}</p>
+                            <p style={{textAlign: 'right'}}>{`Written by ${author}`}</p>
+                        </div>
+                    } interactive>
+                        <span>{title}</span>
+                    </Tooltip>
+                    <p style={{textAlign: 'right', margin: 0, fontSize: '.9em'}}>{`by ${author}`}</p>
+                </Fragment>
             }
             classes={{
                 root: classes.titleBar,

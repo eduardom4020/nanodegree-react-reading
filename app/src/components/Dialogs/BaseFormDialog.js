@@ -27,6 +27,16 @@ class BaseFormDialog extends Component {
         };
     }
 
+    isValid = (fields) => {
+        const valid = Object.values(fields).map(field => field != "").reduce((acc, curr) => acc && curr);
+        console.log(Object.values(fields))
+        if(!valid) {
+            alert('Please fill all of the fields in order to confirm your action!');
+        }
+
+        return valid;
+    }
+
     handleConfirm = () => {
         const { 
             addComment, 
@@ -52,22 +62,55 @@ class BaseFormDialog extends Component {
             category 
         } = this.state;
 
+        let fields = null;
+        let valid = null;
+        
         switch(type) {
             case 'addPost':
-                addPost({author, body, title, category: fixedCategory ? fixedCategory : category });
+                fields = {author, body, title, category: fixedCategory ? fixedCategory : category };
+                valid = this.isValid(fields);
+                console.log('ON ADD POST IS VALID', valid)
+                if(!valid) {
+                    return false;    
+                }
+
+                addPost(fields);
                 orderPosts([fixedCategory ? fixedCategory : category]);
                 break;
             case 'addComment':
-                addComment({author, comment, parentId: postId});
+                fields = {author, comment, parentId: postId};
+                valid = this.isValid(fields);
+
+                if(!valid) {
+                    return false;    
+                }
+
+                addComment(fields);
                 if(category) {
                     orderPosts([category]);
                 }
                 break;
             case 'editComment':
-                editComment({id, newComment: comment});
+                fields = {id, newComment: comment};
+
+                valid = this.isValid(fields);
+
+                if(!valid) {
+                    return false;    
+                }
+
+                editComment(fields);
                 break;
             case 'editPost':
-                editPost({id, newTitle: title, newBody: body});
+                fields = {id, newTitle: title, newBody: body};
+
+                valid = this.isValid(fields);
+
+                if(!valid) {
+                    return false;    
+                }
+
+                editPost();
                 break;
             case 'deletePost':
                 deletePost({id, history});
